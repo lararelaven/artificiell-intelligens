@@ -1,0 +1,165 @@
+WEBVTT
+
+1
+00:00:03.840 --> 00:00:07.680
+So what exactly do we mean when we say that we pre
+
+2
+00:00:07.680 --> 00:00:11.440
+train and fine tune a large language model? Well, think
+
+3
+00:00:11.440 --> 00:00:15.135
+back to when you were in school. To start, you learn a broad range
+
+4
+00:00:15.135 --> 00:00:18.814
+of subjects and topics to get a base understanding of the
+
+5
+00:00:18.814 --> 00:00:22.335
+world around you. However, later, as you
+
+6
+00:00:22.335 --> 00:00:25.715
+choose your career, you'll have focused your attention to more
+
+7
+00:00:25.775 --> 00:00:29.380
+specific subjects focused on that career. You still
+
+8
+00:00:29.380 --> 00:00:33.140
+reference what you've learned in those early years at school and build on
+
+9
+00:00:33.140 --> 00:00:36.360
+it to understand new knowledge related to your specific field.
+
+10
+00:00:36.739 --> 00:00:40.340
+It's kind of the same concept with LLMs. They're pre
+
+11
+00:00:40.340 --> 00:00:44.035
+trained to solve a variety of language problems and then they can be
+
+12
+00:00:44.035 --> 00:00:47.735
+fine tuned to work in specific fields such as media,
+
+13
+00:00:47.795 --> 00:00:51.235
+finance, transport, medicine, etcetera in the pre training
+
+14
+00:00:51.235 --> 00:00:55.075
+phrase. And then the large language model is exposed to
+
+15
+00:00:55.075 --> 00:00:57.815
+a massive amount of text data from the Internet.
+
+16
+00:00:59.040 --> 00:01:02.400
+It learns the basis of language like grammar, vocabulary, and common
+
+17
+00:01:02.400 --> 00:01:06.240
+sense by predicting what words will come next
+
+18
+00:01:06.240 --> 00:01:09.460
+in sentences. And this is similar to you
+
+19
+00:01:09.840 --> 00:01:13.565
+learning how to speak, write, and get some general knowledge in
+
+20
+00:01:13.565 --> 00:01:17.405
+your early school years. Once the model has a
+
+21
+00:01:17.405 --> 00:01:20.865
+good grasp of the basics, it can be customized for specific
+
+22
+00:01:20.925 --> 00:01:24.649
+tasks. So for example, you might want
+
+23
+00:01:24.649 --> 00:01:28.329
+it to be really good at answering medical questions or helping with
+
+24
+00:01:28.329 --> 00:01:32.090
+customer service inquiries. In the
+
+25
+00:01:32.090 --> 00:01:35.770
+fine tuning phase, the LLM is trained on the smaller more
+
+26
+00:01:35.770 --> 00:01:39.485
+specialized data set related to the specific tasks
+
+27
+00:01:39.485 --> 00:01:43.165
+that you wanted to do. It takes the skills that it learned during
+
+28
+00:01:43.165 --> 00:01:46.765
+pre training and it gets better at the specific task you
+
+29
+00:01:46.765 --> 00:01:50.465
+wanted to do. You can always think of it like
+
+30
+00:01:50.605 --> 00:01:54.350
+you taking this course now. You stay you still
+
+31
+00:01:54.350 --> 00:01:58.110
+kind of reference that very early stuff that you learn in school, but we're really
+
+32
+00:01:58.110 --> 00:02:01.870
+specializing your skills now with this course because large language models
+
+33
+00:02:01.870 --> 00:02:05.710
+have been pretrained on such large amounts of data. They can often even do
+
+34
+00:02:05.710 --> 00:02:09.525
+well on tasks without additional industry specific
+
+35
+00:02:09.525 --> 00:02:13.205
+data. They can be used for what is known as few shot or
+
+36
+00:02:13.205 --> 00:02:16.885
+zero shot scenarios. A few shot scenario
+
+37
+00:02:16.885 --> 00:02:20.380
+is where we use minimal data to train a model, and the
+
+38
+00:02:20.380 --> 00:02:24.140
+zero shot is where the model can recognize things that it
+
+39
+00:02:24.140 --> 00:02:27.200
+has not been explicitly taught in the training before.
+
+40
+00:02:28.220 --> 00:02:31.740
+So in some cases, you're able to use a LLM straight out of the box
+
+41
+00:02:31.740 --> 00:02:33.200
+without any additional data.

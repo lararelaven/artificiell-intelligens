@@ -1,0 +1,61 @@
+WEBVTT
+
+1
+00:00:04.080 --> 00:00:07.839
+This step is called tokenization, and there are neural networks that
+
+2
+00:00:07.839 --> 00:00:11.219
+are trained to split long text into individual
+
+3
+00:00:11.519 --> 00:00:15.200
+tokens. And a token is essentially about 3 fourths of a
+
+4
+00:00:15.200 --> 00:00:18.845
+word. So if it's a shorter word like hi, or that, or
+
+5
+00:00:18.845 --> 00:00:22.605
+there, it's probably just one token. But if you have a longer
+
+6
+00:00:22.605 --> 00:00:26.045
+word like summarization, it's going to be split into multiple
+
+7
+00:00:26.045 --> 00:00:29.805
+pieces. And the way that tokenization happens is actually different for every
+
+8
+00:00:29.805 --> 00:00:33.470
+model. Some of them separate prefixes and suffixes. Let's look at an
+
+9
+00:00:33.470 --> 00:00:37.230
+example. What is the tallest building? So what is
+
+10
+00:00:37.230 --> 00:00:40.910
+the tallest building are all separate
+
+11
+00:00:40.910 --> 00:00:44.695
+tokens. And so that separates the suffix off of tallest, but
+
+12
+00:00:44.695 --> 00:00:48.295
+not building because it is taking the context into account. And this
+
+13
+00:00:48.295 --> 00:00:51.975
+step is done so models can understand each word individually. Just
+
+14
+00:00:51.975 --> 00:00:55.655
+like humans, we understand each word individually and as
+
+15
+00:00:55.655 --> 00:00:56.875
+groupings of words.

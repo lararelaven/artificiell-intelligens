@@ -1,0 +1,69 @@
+WEBVTT
+
+1
+00:00:03.919 --> 00:00:07.359
+Large language models are not only large, but they're also
+
+2
+00:00:07.359 --> 00:00:11.200
+general purpose. When we say that an LLM is
+
+3
+00:00:11.200 --> 00:00:14.799
+general purpose, we mean that the model has been trained on a wide
+
+4
+00:00:14.799 --> 00:00:18.485
+variety of text data from the Internet, and it's designed to
+
+5
+00:00:18.485 --> 00:00:22.005
+understand and generate human language in a broad and very
+
+6
+00:00:22.005 --> 00:00:25.465
+versatile manner. It's not specialized for just one thing.
+
+7
+00:00:25.925 --> 00:00:29.285
+It's a multi talented language tool that can assist with many different
+
+8
+00:00:29.285 --> 00:00:31.810
+jobs involving words and communication.
+
+9
+00:00:33.150 --> 00:00:36.990
+If you've worked with much machine learning before, you'd be familiar
+
+10
+00:00:36.990 --> 00:00:40.510
+with the tray with training a model for a specific test such as
+
+11
+00:00:40.510 --> 00:00:43.815
+classification or clustering. But with LLMs,
+
+12
+00:00:44.355 --> 00:00:47.895
+the initial goal is to give the model a general understanding of knowledge
+
+13
+00:00:48.115 --> 00:00:51.635
+and how language works so that it can be applied to more
+
+14
+00:00:51.635 --> 00:00:55.441
+specific tasks later on. We pretrain the model to
+
+15
+00:00:55.441 --> 00:00:58.801
+understand general language and solve many general purpose
+
+16
+00:00:58.801 --> 00:01:02.241
+problems. And then we can fine tune it to work
+
+17
+00:01:02.241 --> 00:01:04.421
+on specific tasks or industries.

@@ -1,0 +1,189 @@
+WEBVTT
+
+1
+00:00:04.080 --> 00:00:07.620
+Large language models are characterized by their immense
+
+2
+00:00:07.680 --> 00:00:11.519
+size. By size, we're not talking about
+
+3
+00:00:11.519 --> 00:00:14.975
+physical space. The size of a large language model is
+
+4
+00:00:14.975 --> 00:00:18.655
+measured by the number of parameters it has. But what does
+
+5
+00:00:18.655 --> 00:00:22.415
+having a large number of parameters mean? Well, imagine you're teaching a
+
+6
+00:00:22.415 --> 00:00:26.019
+robot how to play a really complicated game. To do
+
+7
+00:00:26.019 --> 00:00:29.380
+that, you need to give it lots of instructions and rules on how to play
+
+8
+00:00:29.380 --> 00:00:33.000
+the game. Each of these rules is like a piece of information
+
+9
+00:00:33.379 --> 00:00:37.160
+that the robot needs to remember. Now think of the parameters
+
+10
+00:00:37.220 --> 00:00:40.765
+in a large language model like those instructions and rules.
+
+11
+00:00:41.385 --> 00:00:45.065
+There are tiny bits of information, kinda like building blocks, that
+
+12
+00:00:45.065 --> 00:00:48.745
+help the model understand and generate language. But
+
+13
+00:00:48.745 --> 00:00:52.585
+here's the thing, large language models have a huge number of these
+
+14
+00:00:52.585 --> 00:00:56.120
+tiny building blocks, like millions or even billions of
+
+15
+00:00:56.120 --> 00:00:59.879
+them. The more parameters a model has,
+
+16
+00:00:59.879 --> 00:01:03.640
+the better it can understand and work with language. It's like
+
+17
+00:01:03.640 --> 00:01:07.240
+having a bigger and more powerful brain for language
+
+18
+00:01:07.240 --> 00:01:11.045
+tasks. So when we say a model has lots of parameters, we mean it
+
+19
+00:01:11.045 --> 00:01:14.805
+has a massive collection of these little pieces of information that make
+
+20
+00:01:14.805 --> 00:01:17.545
+it smart when it comes to understanding and using language.
+
+21
+00:01:19.045 --> 00:01:22.645
+The fur most famous large language model contains millions to billions of
+
+22
+00:01:22.645 --> 00:01:26.460
+parameters. For instance, BERT, a large language model developed by
+
+23
+00:01:26.460 --> 00:01:29.760
+Google has 345,000,000 parameters
+
+24
+00:01:30.300 --> 00:01:33.900
+and GPT 4 gets even bigger
+
+25
+00:01:33.900 --> 00:01:36.320
+at 1.7 trillion parameters.
+
+26
+00:01:37.595 --> 00:01:41.275
+Large language models are also trained on huge amounts of text
+
+27
+00:01:41.275 --> 00:01:44.895
+data. The more text the machine is given to read
+
+28
+00:01:45.034 --> 00:01:48.715
+arguably the more successful it's going to be at learning
+
+29
+00:01:48.715 --> 00:01:52.500
+the complexities of language so LLMs are trained
+
+30
+00:01:52.500 --> 00:01:56.179
+on massive amounts of text data from the internet it's
+
+31
+00:01:56.179 --> 00:01:59.859
+like they read the entire internet itself but just really
+
+32
+00:01:59.859 --> 00:02:03.619
+really fast this text data includes things like books
+
+33
+00:02:03.619 --> 00:02:07.305
+so large language models will read tons of books on all sorts of
+
+34
+00:02:07.305 --> 00:02:10.445
+topics from adventure stories to science textbooks.
+
+35
+00:02:11.385 --> 00:02:15.065
+They also go through websites like news articles, blogs, and even
+
+36
+00:02:15.065 --> 00:02:18.605
+social media posts to see how people talk online.
+
+37
+00:02:19.680 --> 00:02:23.360
+They study Wikipedia articles to learn about facts, history, and
+
+38
+00:02:23.360 --> 00:02:27.120
+knowledge, and they also look at how people chat with each
+
+39
+00:02:27.120 --> 00:02:30.560
+other online to understand how language is useful in
+
+40
+00:02:30.560 --> 00:02:34.355
+everyday communication. There's also a few other bits
+
+41
+00:02:34.355 --> 00:02:37.875
+that they'll go through like like recipes and movie reviews
+
+42
+00:02:37.875 --> 00:02:41.495
+and scientific papers. By taking in
+
+43
+00:02:41.635 --> 00:02:45.315
+all this text data, large language models learn the patterns, grammar,
+
+44
+00:02:45.315 --> 00:02:49.030
+and vocabulary of human language. It's like how we learn to
+
+45
+00:02:49.030 --> 00:02:52.390
+speak by listening to others and reading books but large language
+
+46
+00:02:52.390 --> 00:02:56.230
+models do it on a much larger scale and much much
+
+47
+00:02:56.230 --> 00:02:56.730
+faster.

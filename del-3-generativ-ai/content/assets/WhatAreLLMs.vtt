@@ -1,0 +1,181 @@
+WEBVTT
+
+1
+00:00:04.080 --> 00:00:07.919
+In recent years, it's been hard to escape large language
+
+2
+00:00:07.919 --> 00:00:11.679
+models as they've been all over the global news. One of the
+
+3
+00:00:11.679 --> 00:00:15.120
+most famous models in this realm is OpenAI's chat
+
+4
+00:00:15.120 --> 00:00:18.664
+GPT, which has dominated the news with its
+
+5
+00:00:18.664 --> 00:00:22.345
+ability to write poetry, essays, social media
+
+6
+00:00:22.345 --> 00:00:24.845
+content, code, and so much more.
+
+7
+00:00:25.785 --> 00:00:29.485
+GPT and similar models have been employed to translate languages
+
+8
+00:00:30.070 --> 00:00:33.910
+in real time during international events and also
+
+9
+00:00:33.910 --> 00:00:37.350
+to aid in disaster relief efforts by quickly translating vital
+
+10
+00:00:37.350 --> 00:00:41.110
+information into multiple languages. Large
+
+11
+00:00:41.110 --> 00:00:44.775
+language models have also found their way into the world of health care,
+
+12
+00:00:45.255 --> 00:00:48.935
+aiding in medical research and diagnosis. So whether you're an
+
+13
+00:00:48.935 --> 00:00:52.535
+experienced developer or not, it's been hard to not have heard
+
+14
+00:00:52.535 --> 00:00:56.215
+of LLMs. But what exactly are they, and why are
+
+15
+00:00:56.215 --> 00:00:59.840
+they cause causing such a stir? To put it very simply, imagine you
+
+16
+00:00:59.840 --> 00:01:03.520
+give it you give a computer access to the entire Internet and tell
+
+17
+00:01:03.520 --> 00:01:07.280
+it to learn everything it reads as well as using this as a
+
+18
+00:01:07.280 --> 00:01:11.105
+method to learn the structure and the grammar of the language. This isn't
+
+19
+00:01:11.105 --> 00:01:14.945
+exactly how an l learn works, but we'll come onto that later. But
+
+20
+00:01:14.945 --> 00:01:18.625
+the outcome is the same. You're left with a machine that has
+
+21
+00:01:18.625 --> 00:01:22.385
+great knowledge. And not only that, but the machine
+
+22
+00:01:22.385 --> 00:01:25.970
+can actually talk to you about what it knows. You can ask it
+
+23
+00:01:25.970 --> 00:01:29.650
+questions or give it to a language based test, and the machine
+
+24
+00:01:29.650 --> 00:01:33.270
+will understand your question and be able to give you an appropriate
+
+25
+00:01:33.330 --> 00:01:37.030
+response. Large language models represent a transformative
+
+26
+00:01:37.410 --> 00:01:40.965
+breakthrough in the field of artificial intelligence and natural
+
+27
+00:01:40.965 --> 00:01:44.405
+language processing. These models are a testament to the
+
+28
+00:01:44.405 --> 00:01:47.945
+remarkable progress made in machine learning, enabling
+
+29
+00:01:48.005 --> 00:01:51.445
+computers to understand and generate human language at an
+
+30
+00:01:51.445 --> 00:01:55.170
+unprecedented scale and complexity. At the heart of these large
+
+31
+00:01:55.170 --> 00:01:58.770
+language models lies deep learning, a subset of machine learning that
+
+32
+00:01:58.770 --> 00:02:02.450
+mimics the human brain's neural networks. However, what
+
+33
+00:02:02.450 --> 00:02:06.150
+really led to the massive innovations we see today is a type of model architecture
+
+34
+00:02:06.290 --> 00:02:10.095
+known as transformer. This is another way a machine can
+
+35
+00:02:10.095 --> 00:02:13.455
+learn the complexities of a language, and transformers are the
+
+36
+00:02:13.455 --> 00:02:16.975
+reason. The models we see today have such
+
+37
+00:02:16.975 --> 00:02:20.495
+amazing results. There are 3 main features to a large
+
+38
+00:02:20.495 --> 00:02:24.140
+language model which makes them unique. The first aspect is that
+
+39
+00:02:24.140 --> 00:02:27.980
+you might have guessed by the name is that large language models are, well,
+
+40
+00:02:27.980 --> 00:02:31.820
+you know, large compared to other models we've seen before. These
+
+41
+00:02:31.820 --> 00:02:35.595
+models are massive in size. And their size
+
+42
+00:02:35.595 --> 00:02:39.355
+is one of the aspects that allows for the amazing results we've seen from large
+
+43
+00:02:39.355 --> 00:02:43.115
+language models. The second aspect of LLMs is that their
+
+44
+00:02:43.115 --> 00:02:46.895
+general purpose, and the third is that they're able to be pretrained
+
+45
+00:02:47.035 --> 00:02:48.255
+and fine tuned.

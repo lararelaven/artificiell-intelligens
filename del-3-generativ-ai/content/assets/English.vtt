@@ -1,0 +1,192 @@
+WEBVTT
+
+00:00:00.439 --> 00:00:04.375
+In late 2022,
+a relatively unknown corporation
+
+00:00:04.460 --> 00:00:07.400
+called OpenAI unveiled ChatGPT.
+
+00:00:07.760 --> 00:00:13.159
+It was launched as a free online platform
+which swiftly garnered global attention,
+
+00:00:13.250 --> 00:00:17.030
+attracting over 100 million users
+in just a few weeks.
+
+00:00:17.120 --> 00:00:21.986
+ChatGPT made AI mainstream
+and user friendly for non-tech users.
+
+00:00:22.069 --> 00:00:26.276
+In essence, it is a sophisticated chat bot
+that allowed users
+
+00:00:26.360 --> 00:00:29.996
+to generate text
+for lots of specific user situations,
+
+00:00:30.079 --> 00:00:34.465
+such as writing an email,
+creating marketing hype, writing essays,
+
+00:00:34.549 --> 00:00:38.509
+or writing the CEO's introduction
+for a corporate annual report.
+
+00:00:38.720 --> 00:00:42.145
+Generative AI is also capable
+of programming
+
+00:00:42.229 --> 00:00:45.529
+and creating visuals, videos, and audio.
+
+00:00:46.330 --> 00:00:52.000
+Following on from Chat GPTs launch,
+numerous AI solutions have been created.
+
+00:00:52.090 --> 00:00:55.875
+Each capable of generating one or more
+of these forms of content,
+
+00:00:55.959 --> 00:00:58.366
+but with different kinds of functionality.
+
+00:00:58.450 --> 00:01:02.686
+Large tech organizations
+such as Microsoft, Google, Meta,
+
+00:01:02.770 --> 00:01:08.199
+as well as Anthropic and X.AI
+are all main players in generative AI,
+
+00:01:08.440 --> 00:01:13.419
+which requires a large language model
+known as an LLM for it to work.
+
+00:01:13.930 --> 00:01:16.486
+The creation
+of these large language models
+
+00:01:16.569 --> 00:01:21.339
+is a costly affair, often requiring
+tens of millions of dollars,
+
+00:01:21.519 --> 00:01:26.470
+so their development is restricted
+to these financially robust organizations.
+
+00:01:32.970 --> 00:01:38.886
+Some, like Meta's Llama, are open source,
+but most LLMs are proprietary.
+
+00:01:38.970 --> 00:01:42.576
+That is closed source,
+but the source code is not shared
+
+00:01:42.660 --> 00:01:45.839
+with the public
+for anyone to look at or change.
+
+00:01:45.989 --> 00:01:49.500
+They may, however, offer an API for a fee.
+
+00:01:49.769 --> 00:01:52.776
+An API enables
+different software applications
+
+00:01:52.860 --> 00:01:54.636
+to communicate with each other.
+
+00:01:54.720 --> 00:01:58.055
+For general users like us,
+there are both complementary
+
+00:01:58.139 --> 00:02:02.879
+and premium versions
+of ChatGPT or Microsoft's Copilot,
+
+00:02:02.970 --> 00:02:05.819
+allowing for different levels
+of functionality.
+
+00:02:12.050 --> 00:02:16.796
+To utilize these generative AI tools,
+users simply type a request
+
+00:02:16.880 --> 00:02:21.440
+a prompt into a chat interface
+and then await a response.
+
+00:02:21.649 --> 00:02:26.095
+The quality of the user's prompt
+directly influences the generated output,
+
+00:02:26.179 --> 00:02:29.839
+which can then be further developed
+until the user is satisfied.
+
+00:02:29.929 --> 00:02:34.339
+The user can then tweak
+and further fine tune the outputted text.
+
+00:02:43.889 --> 00:02:47.490
+Diffusion models are another category
+of generative AI.
+
+00:02:47.699 --> 00:02:53.279
+These are created to generate images,
+videos, and audio from textual prompts.
+
+00:02:53.490 --> 00:02:56.766
+These models are trained using
+visual and auditory data
+
+00:02:56.850 --> 00:02:58.889
+instead of textual information.
+
+00:02:59.130 --> 00:03:03.785
+Key players in this domain
+include Midjourney, OpenAI's Dall-E,
+
+00:03:03.869 --> 00:03:07.619
+and stability AI
+with their open source Stable Diffusion.
+
+00:03:07.740 --> 00:03:10.175
+Moreover, text to video A.I.
+
+00:03:10.259 --> 00:03:14.309
+generation is being advanced by firms
+like Runway and Synesthesia,
+
+00:03:14.520 --> 00:03:17.309
+while entities like 11 Labs
+and Speecify
+
+00:03:17.580 --> 00:03:19.955
+are concentrating on audio generation.
+
+00:03:20.039 --> 00:03:22.955
+With the foundational technology
+of these AI tools
+
+00:03:23.039 --> 00:03:25.115
+made accessible by larger firms.
+
+00:03:25.199 --> 00:03:30.389
+A myriad of specialized AI applications
+are being developed by small entities.
+
+00:03:31.050 --> 00:03:34.860
+This course provides you with key insights
+about generative AI,
+
+00:03:35.130 --> 00:03:39.126
+about effective prompting techniques,
+and about the many critical issues
+
+00:03:39.210 --> 00:03:44.490
+associated with using them ethically,
+responsibly, efficiently, and wisely.

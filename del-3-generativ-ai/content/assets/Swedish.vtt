@@ -1,0 +1,151 @@
+WEBVTT
+
+00:00:00.439 --> 00:00:04.375
+I slutet av 2022, ett relativt okänt företag
+
+00:00:04.460 --> 00:00:07.400
+kallad OpenAI skapade ChatGPT.
+
+00:00:07.760 --> 00:00:13.159
+Det lanserades som en gratis onlineplattform som snabbt fick global uppmärksamhet,
+
+00:00:13.250 --> 00:00:17.030
+Och lockade över 100 miljoner användare på bara några veckor.
+
+00:00:17.120 --> 00:00:21.986
+ChatGPT gjorde AI mainstream och användarvänlig för icke-tekniska användare.
+
+00:00:22.069 --> 00:00:26.276
+I huvudsak är det en sofistikerad chattbot som tillåter användare
+
+00:00:26.360 --> 00:00:29.996
+att generera text för många specifika användarsituationer,
+
+00:00:30.079 --> 00:00:34.465
+som att skriva ett e-postmeddelande, skapa marknadsföringshype, skriva uppsatser,
+
+00:00:34.549 --> 00:00:38.509
+eller skriva VD:s introduktion till en företags årsredovisning.
+
+00:00:38.720 --> 00:00:42.145
+Generativ AI är också kapabel att programmera
+
+00:00:42.229 --> 00:00:45.529
+och skapa bilder, videor och ljud.
+
+00:00:46.330 --> 00:00:52.000
+Efter lanseringen av Chat GPTs har många AI-lösningar skapats.
+
+00:00:52.090 --> 00:00:55.875
+Var och en kan generera en eller flera av dessa former av innehåll,
+
+00:00:55.959 --> 00:00:58.366
+men med olika typer av funktionalitet.
+
+00:00:58.450 --> 00:01:02.686
+Stora tekniska organisationer som Microsoft, Google, Meta,
+
+00:01:02.770 --> 00:01:08.199
+såväl som Anthropic och X.AI är alla huvudaktörer inom generativ AI,
+
+00:01:08.440 --> 00:01:13.419
+vilket kräver en stor språkmodell en så kallad LLM för att den ska fungera.
+
+00:01:13.930 --> 00:01:16.486
+Skapandet av dessa stora språkmodeller
+
+00:01:16.569 --> 00:01:21.339
+är en kostsam affär som ofta kräver tiotals miljoner dollar,
+
+00:01:21.519 --> 00:01:26.470
+så deras utveckling är begränsad till dessa finansiellt robusta organisationer.
+
+00:01:32.970 --> 00:01:38.886
+Vissa, som Metas Llama, är öppen källkod, men de flesta LLM är privatägda
+
+00:01:38.970 --> 00:01:42.576
+Det är sluten källkod, men källkoden delas inte
+
+00:01:42.660 --> 00:01:45.839
+med allmänheten för alla att titta på eller ändra.
+
+00:01:45.989 --> 00:01:49.500
+De kan dock erbjuda ett API mot en avgift.
+
+00:01:49.769 --> 00:01:52.776
+Ett API möjliggör olika mjukvaruapplikationer
+
+00:01:52.860 --> 00:01:54.636
+att kommunicera med varandra.
+
+00:01:54.720 --> 00:01:58.055
+För vanliga användare som oss finns det båda komplementära
+
+00:01:58.139 --> 00:02:02.879
+och premiumversioner av ChatGPT eller Microsofts Copilot,
+
+00:02:02.970 --> 00:02:05.819
+möjliggör olika nivåer av funktionalitet.
+
+00:02:12.050 --> 00:02:16.796
+För att använda dessa generativa AI-verktyg skriver användarna helt enkelt en begäran
+
+00:02:16.880 --> 00:02:21.440
+en PROMPT till ett chattgränssnitt och väntar sedan på ett svar.
+
+00:02:21.649 --> 00:02:26.095
+Kvaliteten på användarens prompt påverkar direkt det genererade resultatet,
+
+00:02:26.179 --> 00:02:29.839
+som sedan kan vidareutvecklas tills användaren är nöjd.
+
+00:02:29.929 --> 00:02:34.339
+Användaren kan sedan finjustera den utmatade texten.
+
+00:02:43.889 --> 00:02:47.490
+Diffusionsmodeller är en annan kategori av generativ AI.
+
+00:02:47.699 --> 00:02:53.279
+Dessa skapas för att generera bilder, videor och ljud från textmeddelanden.
+
+00:02:53.490 --> 00:02:56.766
+Dessa modeller tränas med hjälp av visuella och auditiva data
+
+00:02:56.850 --> 00:02:58.889
+istället för textinformation.
+
+00:02:59.130 --> 00:03:03.785
+Nyckelspelare inom denna domän inkluderar Midjourney, OpenAI:s Dall-E,
+
+00:03:03.869 --> 00:03:07.619
+och stabilitet AI med deras öppen källkod Stable Diffusion.
+
+00:03:07.740 --> 00:03:10.175
+Dessutom text till video AI
+
+00:03:10.259 --> 00:03:14.309
+generationen utvecklas av företag som Runway och Synesthesia,
+
+00:03:14.520 --> 00:03:17.309
+medan enheter som 11 Labs och Speecify
+
+00:03:17.580 --> 00:03:19.955
+koncentrerar sig på ljudgenerering.
+
+00:03:20.039 --> 00:03:22.955
+Med den grundläggande tekniken för dessa AI-verktyg
+
+00:03:23.039 --> 00:03:25.115
+tillgängliggöras av större företag,
+
+00:03:25.199 --> 00:03:30.389
+Det finns en myriad av specialiserade AI-applikationer som utvecklas av andra företag.
+
+00:03:31.050 --> 00:03:34.860
+Den här kursen ger dig viktiga insikter om generativ AI,
+
+00:03:35.130 --> 00:03:39.126
+om effektiva Promptning och om de många kritiska frågorna som
+
+00:03:39.210 --> 00:03:44.490
+förknippas med att använda Generativ AI på ett etiskt, ansvarsfullt, effektivt och klokt sätt.

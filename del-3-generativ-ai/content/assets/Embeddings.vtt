@@ -1,0 +1,149 @@
+WEBVTT
+
+1
+00:00:03.679 --> 00:00:07.359
+Something called embeddings. The large language models turns those tokens
+
+2
+00:00:07.359 --> 00:00:11.200
+into embedding vectors, turning those tokens into essentially a
+
+3
+00:00:11.200 --> 00:00:14.900
+bunch of numerical representations of those tokens, numbers.
+
+4
+00:00:15.115 --> 00:00:18.635
+And this makes it significantly easier for the computer to read and
+
+5
+00:00:18.635 --> 00:00:22.314
+understand each word and how the different words relate to each other. And these
+
+6
+00:00:22.314 --> 00:00:25.855
+numbers all correspond with the position in an embeddings
+
+7
+00:00:25.915 --> 00:00:29.450
+vector database. And then the final step in the process is transformers,
+
+8
+00:00:29.910 --> 00:00:33.530
+which we'll get to in a little bit. But first, let's talk about vector databases
+
+9
+00:00:33.750 --> 00:00:37.510
+and I'm going to use the terms word and token interchangeably. So just
+
+10
+00:00:37.510 --> 00:00:41.050
+keep that in mind because they're almost the same thing, not quite, but almost.
+
+11
+00:00:41.275 --> 00:00:45.035
+And so these word embeddings that I've been talking about are placed into
+
+12
+00:00:45.035 --> 00:00:48.555
+something called a vector database. These databases are storage and
+
+13
+00:00:48.555 --> 00:00:52.335
+retrieval mechanisms that are highly optimized for vectors.
+
+14
+00:00:52.395 --> 00:00:56.080
+And again, those are just numbers, long series of numbers. Because they're
+
+15
+00:00:56.080 --> 00:00:59.920
+converted into these vectors, they can easily see which words are
+
+16
+00:00:59.920 --> 00:01:03.600
+related to other words based on how similar they are, how close they
+
+17
+00:01:03.600 --> 00:01:07.440
+are based on their embeddings. And that is how the large language
+
+18
+00:01:07.440 --> 00:01:10.875
+model is able to predict to the next word based on the previous words.
+
+19
+00:01:11.115 --> 00:01:14.555
+Vector databases capture the relationship between data as
+
+20
+00:01:14.555 --> 00:01:18.255
+vectors in multidimensional space. I know that sounds complicated,
+
+21
+00:01:18.395 --> 00:01:22.075
+but it's really just a lot of numbers. Vectors are objects
+
+22
+00:01:22.075 --> 00:01:25.835
+with a magnitude and a direction which both influence how
+
+23
+00:01:25.835 --> 00:01:29.189
+similar one vector is to another. And that is how LLMs
+
+24
+00:01:29.330 --> 00:01:33.009
+represent words based on those numbers. Each word gets turned into a
+
+25
+00:01:33.009 --> 00:01:36.770
+vector capturing semantic meaning and its relationship to other
+
+26
+00:01:36.770 --> 00:01:40.470
+words. So here's an example, the words book and worm
+
+27
+00:01:40.530 --> 00:01:44.295
+which independently might not look like they're related to each other, but
+
+28
+00:01:44.295 --> 00:01:47.835
+they are related concepts because they frequently appear together,
+
+29
+00:01:47.895 --> 00:01:51.494
+a bookworm, somebody who likes to read a lot. And because of that, they will
+
+30
+00:01:51.494 --> 00:01:55.130
+have embeddings that look close to each other. And so models build up
+
+31
+00:01:55.130 --> 00:01:58.729
+an understanding of natural language using these embeddings and looking for
+
+32
+00:01:58.729 --> 00:02:02.570
+similarity of different words, terms, groupings of words, and all of
+
+33
+00:02:02.570 --> 00:02:06.250
+these nuanced relationships. And the vector format helps models
+
+34
+00:02:06.250 --> 00:02:09.945
+understand natural language better than other formats. And you can kind
+
+35
+00:02:09.945 --> 00:02:12.985
+of think of all this like a map. If you have a map with 2
+
+36
+00:02:12.985 --> 00:02:16.665
+landmarks that are close to each other, they're likely going to have very similar
+
+37
+00:02:16.665 --> 00:02:19.737
+coordinates. So it's kind of like that. Okay, now
