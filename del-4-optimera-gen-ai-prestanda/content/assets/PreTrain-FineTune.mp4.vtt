@@ -1,0 +1,277 @@
+WEBVTT
+
+00:00:04.880 --> 00:00:09.820
+In the contemporary landscape of AI, numerous large language models 
+
+00:00:09.890 --> 00:00:14.790
+exist, including notable examples such as Chat, GPT, and Gemini, but 
+
+00:00:14.830 --> 00:00:19.750
+also open source models like Llama and Falcon, among many others. Now, 
+
+00:00:19.790 --> 00:00:24.180
+to optimize these models for specific applications, customization is 
+
+00:00:24.210 --> 00:00:28.990
+essential. Currently, there are three prominent techniques for tailoring a 
+
+00:00:29.020 --> 00:00:33.810
+language model to meet particular use cases. These are 
+
+00:00:33.820 --> 00:00:38.540
+widely recognized, and they are prompt engineering, fine tuning, and rag, which 
+
+00:00:38.570 --> 00:00:43.200
+means retrieval, augmented generation and I'll describe these 
+
+00:00:43.240 --> 00:00:47.650
+techniques in this video. The first technique, prompt engineering, 
+
+00:00:47.740 --> 00:00:52.590
+focuses on customizing input prompts. This means designing 
+
+00:00:52.620 --> 00:00:57.460
+and refining prompts to elicit specific types of responses 
+
+00:00:57.510 --> 00:01:02.160
+from a language model. Effective prompt engineering involves 
+
+00:01:02.270 --> 00:01:06.750
+selecting appropriate keywords, providing contextual information, 
+
+00:01:07.130 --> 00:01:11.720
+and structuring the input in a manner that encourages the model to 
+
+00:01:11.750 --> 00:01:16.700
+produce the desired output. And this technique is often 
+
+00:01:16.750 --> 00:01:21.730
+regarded as the most successful, the most cost effective method 
+
+00:01:21.860 --> 00:01:26.780
+for customization, requiring relatively minimal effort. The 
+
+00:01:26.850 --> 00:01:31.780
+efficient use of prompt engineering is critical in guiding a model's behavior towards 
+
+00:01:31.890 --> 00:01:36.840
+a specific outcome or outcomes. Consequently, when you're faced 
+
+00:01:36.850 --> 00:01:41.760
+with the need to customize a model, practitioners are well. You're advised 
+
+00:01:41.810 --> 00:01:46.770
+first of all to prioritize prompt engineering, being able to prompt in an 
+
+00:01:46.800 --> 00:01:51.210
+appropriate manner. Describing this at a surface level, 
+
+00:01:51.510 --> 00:01:56.330
+the primary approaches to prompt engineering are zero shot learning, one shot learning, and few shot 
+
+00:01:56.360 --> 00:02:01.230
+learning. Zero shot learning refers to the model's ability to generalize and 
+
+00:02:01.350 --> 00:02:06.120
+make predictions on unseen classes or tasks, and where no 
+
+00:02:06.170 --> 00:02:10.860
+examples are provided. And in such cases, a prompt has to be 
+
+00:02:10.890 --> 00:02:15.830
+formatted to guide the model effectively despite the absence of examples. 
+
+00:02:16.850 --> 00:02:21.840
+So, for example, you might instruct the model to classify a given text as either religious or 
+
+00:02:21.870 --> 00:02:26.790
+political, providing only the input text for analysis, and that might be good enough. 
+
+00:02:28.130 --> 00:02:32.770
+So even though the model lacks explicit examples of what constitutes religious or 
+
+00:02:32.810 --> 00:02:37.720
+political content, it may still be able to infer the necessary distinctions based 
+
+00:02:37.770 --> 00:02:42.300
+on these contextual hints in this zero shot 
+
+00:02:42.340 --> 00:02:47.000
+prompt. Now, in comparison, in foosh prompting, this involves 
+
+00:02:47.050 --> 00:02:51.600
+providing the model with a limited number of examples. For example, if an 
+
+00:02:51.630 --> 00:02:56.460
+organization possesses a vast collection of PDF documents and seeks to identify 
+
+00:02:56.540 --> 00:03:01.400
+those containing specific keywords, it can supply the model with a few examples of 
+
+00:03:01.430 --> 00:03:06.010
+such keywords, and this approach will allow the model to gain context and 
+
+00:03:06.160 --> 00:03:11.110
+better understand the nature of the task at hand. So that's prompt 
+
+00:03:11.150 --> 00:03:15.890
+and prompt engineering. The second technique, fine tuning, is a more resource 
+
+00:03:15.980 --> 00:03:20.730
+intensive process, and this should only be employed after you know you've had initial 
+
+00:03:20.760 --> 00:03:25.170
+attempts at prompting engineering and seeing what that is on the foundational 
+
+00:03:25.240 --> 00:03:29.840
+model. Now, fine tuning enables the model to use its 
+
+00:03:29.930 --> 00:03:34.840
+broad capabilities whilst incorporating customizations that involve 
+
+00:03:34.990 --> 00:03:39.640
+training the model on some proprietary documents. This technique is 
+
+00:03:39.690 --> 00:03:44.110
+particularly useful when specific business needs necessitate a more tailored 
+
+00:03:44.160 --> 00:03:48.620
+approach, and fine tuning can be categorized into two different types, 
+
+00:03:48.780 --> 00:03:53.610
+instruction based and domain based. Instruction based fine 
+
+00:03:53.640 --> 00:03:58.530
+tuning utilizes labeled examples of of data to enhance the performance of 
+
+00:03:58.560 --> 00:04:03.520
+a pre trained model on a specific task, and these examples are formatted 
+
+00:04:03.550 --> 00:04:08.140
+as pairs of prompts and responses, often phrased as explicit 
+
+00:04:08.180 --> 00:04:12.520
+instructions. This process modifies the model's weights, 
+
+00:04:12.670 --> 00:04:17.630
+distinguishing it from prompt engineering, which doesn't alter the embedded weights of 
+
+00:04:17.720 --> 00:04:22.710
+a large language model per se. Domain based 
+
+00:04:22.750 --> 00:04:27.660
+fine tuning, also known as domain adaptation. This allows practitioners to 
+
+00:04:27.690 --> 00:04:32.670
+adapt pre trained foundation models to specific tasks 
+
+00:04:32.830 --> 00:04:36.450
+using limited domain specific data. 
+
+00:04:37.430 --> 00:04:42.210
+This technique is particularly advantageous in specialized fields such as 
+
+00:04:42.340 --> 00:04:47.060
+medicine, where the model can be fine tuned with medical specific 
+
+00:04:47.130 --> 00:04:51.940
+terminology and examples. Finally, then we have the 
+
+00:04:51.970 --> 00:04:56.160
+third technique, and this is rag, which means retrieval 
+
+00:04:56.320 --> 00:05:01.060
+augmented generation or retrieved augmented generation, and 
+
+00:05:01.090 --> 00:05:05.700
+this enhances prompts by integrating information from multiple data 
+
+00:05:05.750 --> 00:05:10.700
+sources. So here's a brief breakdown. Initially you 
+
+00:05:10.710 --> 00:05:15.630
+have the user prompt and the process starts with this. It then goes to the retrieval system. This 
+
+00:05:15.660 --> 00:05:19.880
+could be, you know, known as copilot or chat GPT or 
+
+00:05:20.580 --> 00:05:25.320
+whatever application you're using, and this performs a semantic search. 
+
+00:05:25.410 --> 00:05:30.110
+Then within a document repository, the relevant documents. The system retrieves 
+
+00:05:30.160 --> 00:05:34.950
+relevant documents extracted from various repositories such as the company's wikis 
+
+00:05:35.000 --> 00:05:39.920
+or customer relationship management systems and SharePoint and such. The 
+
+00:05:39.970 --> 00:05:44.560
+extracted data undergoes transformation through techniques such as chunking. This 
+
+00:05:44.610 --> 00:05:49.300
+identifies the linguistic components and is subsequently converted into 
+
+00:05:49.370 --> 00:05:54.210
+embeddings. And these are embeddings are numerical representations of text 
+
+00:05:54.340 --> 00:05:59.260
+within a vector space. These embeddings are stored in a vector. Database, allowing 
+
+00:05:59.290 --> 00:06:04.070
+the rag model to compare the user query embeddings with those in the knowledge 
+
+00:06:04.110 --> 00:06:08.790
+library. And additionally, knowledge libraries and their corresponding embeddings can 
+
+00:06:08.830 --> 00:06:13.460
+be updated as well. The original prompt is then 
+
+00:06:13.510 --> 00:06:18.390
+augmented with relevant contextual information from similar documents, which is 
+
+00:06:18.420 --> 00:06:23.350
+then submitted to the foundation model. So that's a 
+
+00:06:23.380 --> 00:06:28.250
+quick overview. There. There's more detail which will be provided later on in one of the 
+
+00:06:28.260 --> 00:06:32.920
+other videos. Now let's recap the three techniques for customizing language models, their prompt 
+
+00:06:32.960 --> 00:06:37.490
+engineering, fine tuning, and rag retrieving retrieved augmented 
+
+00:06:37.540 --> 00:06:42.420
+generation, and they're employed in that specific order 
+
+00:06:42.610 --> 00:06:47.470
+in terms of how you wish to develop it. Now, practitioners and this are encouraged to 
+
+00:06:47.510 --> 00:06:52.310
+initiate the customization process with prompt engineering. If this proves 
+
+00:06:52.350 --> 00:06:57.120
+insufficient, then fine tuning could be pursued and followed by a 
+
+00:06:57.130 --> 00:07:00.890
+rag model if necessary, combined together with the fine tune method. 
+
+00:07:01.920 --> 00:07:06.850
+Now, some people consider practitioners from what I've read, consider 
+
+00:07:06.940 --> 00:07:11.760
+fine tuning a rag to be equally viable options, but from also 
+
+00:07:11.840 --> 00:07:16.500
+what my understanding is in current industry trends suggest a growing 
+
+00:07:16.550 --> 00:07:21.390
+preference for rag models. But as the field of AI and 
+
+00:07:21.460 --> 00:07:26.390
+generative AI evolves, it's likely that new techniques will also emerge in the near future that might 
+
+00:07:26.420 --> 00:07:27.160
+not need these as well.

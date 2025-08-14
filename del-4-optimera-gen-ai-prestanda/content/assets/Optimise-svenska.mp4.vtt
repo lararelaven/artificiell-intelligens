@@ -1,0 +1,289 @@
+WEBVTT
+
+00:00:04.880 --> 00:00:09.590
+I det samtida landskapet av AI finns det många stora språkmodeller, 
+
+00:00:09.590 --> 00:00:14.260
+inklusive anmärkningsvärda exempel som Chat, GPT och Gemini, men 
+
+00:00:14.260 --> 00:00:18.950
+också modeller med öppen källkod som Llama och Falcon, bland många andra. 
+
+00:00:18.950 --> 00:00:23.230
+Nu, för att optimera dessa modeller för specifika applikationer, är 
+
+00:00:23.230 --> 00:00:27.970
+anpassning avgörande. För närvarande finns det tre framträdande tekniker för att 
+
+00:00:27.970 --> 00:00:31.590
+skräddarsy en språkmodell för att möta särskilda 
+
+00:00:31.590 --> 00:00:35.540
+användningsfall. Dessa är allmänt erkända, och de är snabb 
+
+00:00:35.540 --> 00:00:40.250
+ingenjörskonst, finjustering och rag, vilket betyder hämtning, 
+
+00:00:40.250 --> 00:00:44.550
+utökad generation och jag kommer att beskriva dessa tekniker i den 
+
+00:00:44.550 --> 00:00:49.550
+här videon. Den första tekniken, prompt engineering, fokuserar 
+
+00:00:49.550 --> 00:00:54.350
+på att anpassa inmatningsmeddelanden. Detta innebär att designa 
+
+00:00:54.350 --> 00:00:58.420
+och förfina uppmaningar för att få fram specifika typer av 
+
+00:00:58.420 --> 00:01:03.240
+svar från en språkmodell. Effektiv prompt ingenjörskonst 
+
+00:01:03.240 --> 00:01:07.700
+innebär att välja lämpliga nyckelord, tillhandahålla kontextuell 
+
+00:01:07.700 --> 00:01:11.810
+information och strukturera input på ett sätt som uppmuntrar 
+
+00:01:11.810 --> 00:01:16.700
+modellen att producera den önskade produktionen. Och 
+
+00:01:16.700 --> 00:01:21.310
+denna teknik anses ofta vara den mest framgångsrika, den mest 
+
+00:01:21.310 --> 00:01:26.120
+kostnadseffektiva metoden för anpassning, som kräver relativt 
+
+00:01:26.120 --> 00:01:31.040
+minimal ansträngning. Effektiv användning av prompt ingenjörskonst är avgörande 
+
+00:01:31.040 --> 00:01:35.120
+för att styra en modells beteende mot ett eller flera 
+
+00:01:35.120 --> 00:01:39.790
+specifika resultat. Följaktligen, när du står inför behovet av att 
+
+00:01:39.790 --> 00:01:44.600
+anpassa en modell, mår utövarna bra. Du rekommenderas först och främst att 
+
+00:01:44.600 --> 00:01:49.360
+prioritera snabb ingenjörskonst, att kunna fråga på ett lämpligt 
+
+00:01:49.360 --> 00:01:54.350
+sätt. För att beskriva detta på ytnivå, är de primära metoderna för prompt ingenjörskonst 
+
+00:01:54.350 --> 00:01:59.120
+noll skott-inlärning, one shot-inlärning och få skott-inlärning. Zero shot learning 
+
+00:01:59.120 --> 00:02:04.010
+hänvisar till modellens förmåga att generalisera och göra förutsägelser om 
+
+00:02:04.010 --> 00:02:07.940
+osedda klasser eller uppgifter, och där inga 
+
+00:02:07.940 --> 00:02:12.740
+exempel ges. Och i sådana fall måste en prompt formateras för att 
+
+00:02:12.740 --> 00:02:17.730
+vägleda modellen effektivt trots frånvaron av exempel. Så, till 
+
+00:02:17.730 --> 00:02:22.510
+exempel, kan du instruera modellen att klassificera en given text som antingen religiös 
+
+00:02:22.510 --> 00:02:26.630
+eller politisk, och endast tillhandahålla ingångstexten för analys, och 
+
+00:02:26.630 --> 00:02:31.320
+det kan vara tillräckligt bra. Så även om modellen saknar 
+
+00:02:31.320 --> 00:02:36.270
+explicita exempel på vad som utgör religiöst eller politiskt innehåll, kanske den fortfarande 
+
+00:02:36.270 --> 00:02:40.980
+kan sluta sig till de nödvändiga distinktionerna 
+
+00:02:40.980 --> 00:02:45.680
+baserat på dessa kontextuella antydningar i denna 
+
+00:02:45.680 --> 00:02:50.660
+nollskottsuppmaning. Nu, i jämförelse, innebär detta att förse modellen med ett begränsat 
+
+00:02:50.660 --> 00:02:54.750
+antal exempel. Till exempel, om en organisation har en stor samling 
+
+00:02:54.750 --> 00:02:59.040
+PDF-dokument och försöker identifiera de som innehåller specifika 
+
+00:02:59.040 --> 00:03:03.970
+nyckelord, kan den förse modellen med några exempel på sådana nyckelord, och detta 
+
+00:03:03.970 --> 00:03:08.830
+tillvägagångssätt kommer att göra det möjligt för modellen att få ett sammanhang 
+
+00:03:08.830 --> 00:03:13.560
+och bättre förstå karaktären av den aktuella uppgiften. Så det är snabb och 
+
+00:03:13.560 --> 00:03:18.420
+snabb ingenjörskonst. Den andra tekniken, finjustering, är en mer 
+
+00:03:18.420 --> 00:03:23.090
+resurskrävande process, och den bör endast användas efter att du vet att du har haft 
+
+00:03:23.090 --> 00:03:27.850
+första försök att få fram ingenjörsarbete och se vad det är på grundmodellen. Nu gör 
+
+00:03:27.850 --> 00:03:32.760
+finjusteringen det möjligt för modellen att använda sina 
+
+00:03:32.760 --> 00:03:37.710
+breda möjligheter samtidigt som den innehåller anpassningar som involverar 
+
+00:03:37.710 --> 00:03:42.050
+utbildning av modellen i vissa patentskyddade dokument. Denna teknik är 
+
+00:03:42.050 --> 00:03:46.950
+särskilt användbar när specifika affärsbehov kräver ett mer skräddarsytt 
+
+00:03:46.950 --> 00:03:51.480
+tillvägagångssätt, och finjustering kan kategoriseras i två olika 
+
+00:03:51.480 --> 00:03:54.880
+typer, instruktionsbaserad och domänbaserad. 
+
+00:03:54.880 --> 00:03:59.620
+Instruktionsbaserad finjustering använder märkta exempel på data för 
+
+00:03:59.620 --> 00:04:04.530
+att förbättra prestandan hos en förtränad modell på en specifik uppgift, 
+
+00:04:04.530 --> 00:04:08.910
+och dessa exempel är formaterade som par av uppmaningar och 
+
+00:04:08.910 --> 00:04:13.690
+svar, ofta formulerade som explicita instruktioner. Denna process 
+
+00:04:13.690 --> 00:04:18.580
+modifierar modellens vikter och skiljer den från prompt ingenjörskonst, vilket inte 
+
+00:04:18.580 --> 00:04:23.320
+ändrar de inbäddade vikterna för en stor 
+
+00:04:23.320 --> 00:04:27.290
+språkmodell i sig. Domänbaserad finjustering, även känd som 
+
+00:04:27.290 --> 00:04:31.920
+domänanpassning. Detta gör det möjligt för utövare att 
+
+00:04:31.920 --> 00:04:36.210
+anpassa förutbildade grundmodeller till 
+
+00:04:36.210 --> 00:04:41.040
+specifika uppgifter med hjälp av begränsad domänspecifik 
+
+00:04:41.040 --> 00:04:44.480
+data. Denna teknik är särskilt fördelaktig inom specialiserade 
+
+00:04:44.480 --> 00:04:48.970
+områden som medicin, där modellen kan finjusteras 
+
+00:04:48.970 --> 00:04:52.850
+med medicinsk specifik terminologi och exempel. 
+
+00:04:52.850 --> 00:04:57.620
+Slutligen, då har vi den tredje tekniken, och det här är 
+
+00:04:57.620 --> 00:05:02.250
+rag, vilket betyder hämtning förstärkt generation eller hämtad 
+
+00:05:02.250 --> 00:05:07.200
+utökad generation, och detta förbättrar uppmaningar genom att 
+
+00:05:07.200 --> 00:05:11.600
+integrera information från flera datakällor. Så här är en kort 
+
+00:05:11.600 --> 00:05:16.480
+sammanfattning. Till en början har du användarprompten och processen börjar med denna. Den 
+
+00:05:16.480 --> 00:05:21.460
+går sedan till hämtningssystemet. Det här kan vara, du 
+
+00:05:21.460 --> 00:05:25.850
+vet, känt som copilot eller chatt GPT eller vilken applikation du än 
+
+00:05:25.850 --> 00:05:30.750
+använder, och det här utför en semantisk sökning. Sedan i ett dokumentförråd, de relevanta 
+
+00:05:30.750 --> 00:05:35.600
+dokumenten. Systemet hämtar relevanta dokument utvunna från olika arkiv såsom 
+
+00:05:35.600 --> 00:05:40.360
+företagets wikis eller kundrelationshanteringssystem och SharePoint och 
+
+00:05:40.360 --> 00:05:45.020
+liknande. Den extraherade datan genomgår transformation genom tekniker som chunking. 
+
+00:05:45.020 --> 00:05:49.480
+Detta identifierar de språkliga komponenterna och omvandlas sedan till 
+
+00:05:49.480 --> 00:05:54.210
+inbäddningar. Och dessa är inbäddningar är numeriska representationer av 
+
+00:05:54.210 --> 00:05:59.120
+text i ett vektorutrymme. Dessa inbäddningar lagras i en vektor. Databas, vilket 
+
+00:05:59.120 --> 00:06:03.930
+gör att rag-modellen kan jämföra inbäddningar av användarfrågor med dem i 
+
+00:06:03.930 --> 00:06:08.830
+kunskapsbiblioteket. Dessutom kan kunskapsbibliotek och deras motsvarande inbäddningar 
+
+00:06:08.830 --> 00:06:13.690
+också uppdateras. Den ursprungliga uppmaningen 
+
+00:06:13.690 --> 00:06:18.500
+utökas sedan med relevant kontextuell information från liknande dokument, som 
+
+00:06:18.500 --> 00:06:23.210
+sedan skickas till grundmodellen. Så det är en 
+
+00:06:23.210 --> 00:06:28.180
+snabb översikt. Det. Det finns mer detaljer som kommer att tillhandahållas senare i 
+
+00:06:28.180 --> 00:06:33.070
+en av de andra videorna. Låt oss nu sammanfatta de tre teknikerna för att anpassa språkmodeller, deras 
+
+00:06:33.070 --> 00:06:38.040
+snabba konstruktion, finjustering och trashhämtning av hämtad utökad 
+
+00:06:38.040 --> 00:06:43.000
+generation, och de används i den specifika ordningen 
+
+00:06:43.000 --> 00:06:47.470
+när det gäller hur du vill utveckla den. Nu uppmuntras utövare och detta att 
+
+00:06:47.470 --> 00:06:52.390
+initiera anpassningsprocessen med snabb ingenjörskonst. Om detta visar sig 
+
+00:06:52.390 --> 00:06:57.370
+vara otillräckligt kan finjustering eftersträvas och vid behov 
+
+00:06:57.370 --> 00:07:02.170
+följas av en trasmodell, kombinerad med finjusteringsmetoden. Nu, 
+
+00:07:02.170 --> 00:07:06.560
+vissa människor anser att utövare från vad jag har läst, anser att 
+
+00:07:06.560 --> 00:07:11.400
+finjustering av en trasa är lika genomförbara alternativ, men 
+
+00:07:11.400 --> 00:07:15.920
+också vad jag förstår i nuvarande branschtrender tyder på en växande 
+
+00:07:15.920 --> 00:07:20.110
+preferens för trasmodeller. Men när området för AI och 
+
+00:07:20.110 --> 00:07:24.960
+generativ AI utvecklas, är det troligt att nya tekniker också kommer att dyka 
+
+00:07:24.960 --> 00:07:27.160
+upp inom en snar framtid som kanske inte behöver dessa också.
