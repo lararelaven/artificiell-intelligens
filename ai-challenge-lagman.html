@@ -97,6 +97,7 @@
         <header class="text-center mb-8">
             <h1 class="text-4xl sm:text-5xl md:text-6xl mb-4 tracking-wider">🎮 AI Level Challenge</h1>
             <p class="text-2xl sm:text-3xl text-blue-400">Lagmansgymnasiet 2025</p>
+            <a href="🎮 AI Level Challenge - Joel.docx" download class="block mt-4 text-lg text-blue-300 hover:underline">📄 Ladda ner uppdragslista (.docx)</a>
         </header>
 
         <!-- Total XP Display -->
@@ -203,38 +204,38 @@
         // Mission Data
         const missions = {
             green: [
-                { title: "Färgkod på dörrkarmen", description: "Fotografera expeditionens dörrkarm. AI identifierar exakt färgkod (t.ex. NCS eller HEX) och föreslår en matchande accentfärg.", xp: 10 },
+                { title: "Färgkod på dörrkarmen", description: "Fotografera expeditionens dörrkarm. AI identifierar exakt färgkod (t.ex. NCS eller HEX) och föreslår en matchande accentfärg enligt färgteori.", xp: 10 },
                 { title: "AI-växtdetektiven", description: "Ta kort på en växt i skolan. AI bestämmer art och förklarar växten som en botaniker för en 5-åring.", xp: 10 },
                 { title: "Prompt-ingenjören", description: "Testa samma prompt (t.ex. \"Förklara fotosyntesen\") i 3 olika AI. Dokumentera skillnaderna.", xp: 10 },
-                { title: "AI-design", description: "Fotografera en plats i fiket, låt AI föreslå förbättringar (möblering, färg, ljus) och illustrera förslaget.", xp: 10 },
+                { title: "AI-design", description: "Fotografera en plats i fiket och låt AI analysera bilden och generera ett konkret förslag på hur platsen kan förbättras – t.ex. möblering, färgsättning, ljus, dekorationer. Låt även AI:n göra en illustration på hur detta kan se ut.", xp: 10 },
                 { title: "Historie-quiz", description: "Använd AI för att ta reda på ett oväntat historiskt faktum om det år då Lagmansgymnasiet grundades.", xp: 10 },
                 { title: "Texttolkaren", description: "Fotografera en whiteboard med text. Låt AI tolka handstilen och återge den som digital text.", xp: 10 },
-                { title: "Lagmanslogikern", description: "AI beräknar hur många sekunder det tar att göra närvarokontroll för alla elever under ett år och motiverar svaret.", xp: 10 },
-                { title: "AI-meteorolog", description: "Ta bild av himlen. AI uppskattar väderprognosen och skapar två rader kreativ “väderpoesi”.", xp: 10 },
-                { title: "Rimgeneratorn", description: "Be tre olika AI att rimma på ett valfritt ord. Jämför och välj bästa. Låt sedan AI skapa ett kort skämt som slutar med rimmet.", xp: 10 },
-                { title: "Ljudnivåjämförelse", description: "Spela in 5 sekunder ljud i biblioteket och i matsalen, låt AI jämföra och ge skillnaden i dB.", xp: 10 },
+                { title: "Lagmanslogikern", description: "AI beräknar hur många sekunder det tar att göra närvarokontroll för alla elever under ett år på lagmansgymnasiet och motiverar svaret (du kan behöva hjälpa AI lite).", xp: 10 },
+                { title: "AI-meteorolog (ny)", description: "Ta bild av himlen. AI uppskattar väderprognosen de kommande timmarna och skapar två rader kreativ “väderpoesi” utifrån bilden.", xp: 10 },
+                { title: "Rimgeneratorn", description: "Be tre olika AI att rimma på ett valfritt ord, t.ex. Lagman. Jämför kreativiteten och välj bästa. Låt sedan AI skapa ett kort skämt som slutar med rimmet.", xp: 10 },
+                { title: "Ljudnivåjämförelse", description: "Spela in 5 sekunder ljud i biblioteket och i matsalen under lunchtid, låt AI jämföra och ge skillnaden i dB.", xp: 10 },
                 { title: "Emoji-beskrivning", description: "Ta en bild på skolans entré, be AI översätta den till enbart emojis.", xp: 10 },
-                { title: "AI-tolk", description: "Spela in en mening på svenska. Låt AI översätta den till tre olika språk och spela upp en av översättningarna.", xp: 10 },
-                { title: "Matematikformeln", description: "Ta en bild på en handskriven matematisk formel. Be AI förklara vad den används till med ett konkret exempel.", xp: 10 },
+                { title: "AI-tolk", description: "Spela in en mening på svenska. Låt AI översätta den till tre olika språk och spela upp en av översättningarna..", xp: 10 },
+                { title: "Matematikformeln", description: "Ta en bild på en handskriven matematisk formel (t.ex. Pythagoras sats). Be AI förklara vad formeln används till och be den även om ett konkret verklighetstroget exempel.", xp: 10 },
                 { title: "AI-konstnär", description: "Låt AI generera Lagmansgymnasiet som ett slott, “som om det vore en Pixar-film”.", xp: 10 },
-                { title: "Logo-remixen", description: "Ta en bild på skolans logotyp. Låt AI skapa tre nya versioner i helt olika stilar (minimalistisk, 8-bitars, futuristisk).", xp: 10 },
+                { title: "Logo-remixen", description: "Ta en bild på skolans logotyp. Låt AI skapa tre nya versioner i helt olika stilar (t.ex. \"minimalistisk\", \"8-bitars retro\", \"futuristisk\".", xp: 10 },
             ],
             yellow: [
-                { title: "Basketkorgshöjd", description: "Fotografera basketkorgen, använd AI för att beräkna dess höjd i meter.", xp: 25 },
+                { title: "Basketkorgshöjd", description: "Fotografera basketkorgen, använd AI för att beräkna dess höjd i meter. AI:n ska även uppskatta kastvinkel för perfekt trepoängsskott.", xp: 25 },
                 { title: "Schemasammanställaren", description: "Fotografera en lärares schema. Använd AI för att sammanställa hur många undervisningstimmar läraren har under veckan.", xp: 25 },
-                { title: "Studierese-planeraren", description: "Använd AI för att skapa en detaljerad endags-studieresa till Göteborg för din klass (schema, 2 studiebesök, budget).", xp: 25 },
-                { title: "Multimodal forskaren", description: "Ladda upp text i NotebookLM och be om sammanfattning, quiz, frågekort och en videosammanfattning.", xp: 25 },
-                { title: "Rörelse-analytikern", description: "Filma en klasskamrat som gör en övning (t.ex. armhävningar). Be en AI ge tre konkreta tips för att förbättra tekniken.", xp: 25 },
-                { title: "Veteranlärare", description: "Skapa intervjufrågor med AI, intervjua en person som jobbat >20 år, och låt AI skriva en artikel (200 ord) med AI-bild.", xp: 25 },
-                { title: "Retro-porträtt", description: "Ta en selfie. Använd AI för att redigera bilden så att den ser ut som ett klassiskt skolfoto från 1980-talet.", xp: 25 },
+                { title: "Studierese-planeraren", description: "Använd AI för att skapa en detaljerad endags-studieresa till Göteborg för din klass. AI:n ska ta fram ett tidsschema (kl. 08-18), två relevanta studiebesök för en AI-kurs och en uppskattad budget per elev (exkl. mat).", xp: 25 },
+                { title: "Multimodal forskaren", description: "Ta kort på några sidor text i en lärobok i. Använd NotebookLM för att ladda upp text + be om sammanfattning, quiz, frågekort och en videosammanfattning av innehållet.", xp: 25 },
+                { title: "Rörelse-analytikern", description: "Filma en klasskamrat som gör 3 repetitioner av en övning (t.ex. armhävningar). Visa klippet för en AI och be den ge tre konkreta tips för att förbättra tekniken.", xp: 25 },
+                { title: "Veteranlärare", description: "Skapa 5-7 intervjufrågor med hjälp av AI och intervjua en person som har jobbat mer än 20 år på skolan. Använd sedan detta och låt AI skapa en mini-intervjuartikel (200 ord) i skoltidningsstil med en AI-genererad profilbild (med samtycke).", xp: 25 },
+                { title: "Retro-porträtt", description: "Ta en selfie. Använd AI för att redigera bilden så att den ser ut som ett klassiskt skolfoto från 1980-talet, komplett med tidstypisk frisyr och kläder.", xp: 25 },
                 { title: "AI-fontdetektiv", description: "Fotografera en skolaffisch. Använd AI för att identifiera vilket typsnitt som används i rubriken.", xp: 25 },
-                { title: "AI-video", description: "Använd en text-till-video-AI för att skapa en 8s video där 'en bok från biblioteket flyger magiskt genom skolans korridorer'.", xp: 25 },
+                { title: "AI-video", description: "Använd en text-till-video-AI. Skriv en prompt för att skapa en 8 sekunders video där \"en bok från biblioteket flyger magiskt genom skolans korridorer\".", xp: 25 },
             ],
             red: [
-                { title: "Lektionsplaneraren", description: "Skapa en 45-min lektionsplan (mål, aktiviteter) och gör ett presentationsutkast i gamma.app.", xp: 50 },
-                { title: "AI-etik-panelen", description: "Välj ett AI-etiskt dilemma. Generera argument för 3 olika 'personligheter' och skapa en 1-minuts ljud-debatt.", xp: 50 },
-                { title: "Escape Room-design", description: "Designa ett komplett mini-escape room för biblioteket med 3 pussel, ledtrådar och logisk karta.", xp: 50 },
-                { title: "Spelkonceptet", description: "Få en AI att skapa ett koncept för ett mobilspel på Lagmansgymnasiet (mål, karaktär, specialförmåga). Försök sedan skapa spelet.", xp: 50 },
+                { title: "Lektionsplaneraren", description: "Använd AI för att skapa en 45-minuters lektionsplan för att introducera ett centralt begrepp i kursen \"Artificiell Intelligens nivå 1\". Planen ska innehålla lärandemål, en startaktivitet, en huvudaktivitet och ett enkelt sätt att kontrollera förståelse. Använd även AI och gör ett utkast för en presentation i gamma.app som du kan använda för att prata om begreppet för klasskompisarna.", xp: 50 },
+                { title: "AI-etik-panelen", description: "Välj ett AI-etiskt dilemma (t.ex. \"Ska AI-konst kunna vinna priser?\" eller \"Är det rätt att ersätta mänskliga jobb med AI?\"). Använd AI för att generera starka argument för tre olika \"personligheter\" (t.ex. en konstnär, en företagsledare och en filosof). Sammanställ argumenten till ett manus för en 1-minuts debatt. Generera sedan debatten med en text-till-tal-AI.", xp: 50 },
+                { title: "Escape Room-design", description: "Designa ett komplett mini-escape room med tre pussel i skolbiblioteket. AI ska generera gåtor, ledtrådar och en logisk karta över hur pusslen hänger ihop. Presentera hela konceptet i ett dokument.", xp: 50 },
+                { title: "Spelkonceptet", description: "Skriv en prompt för att få en AI att skapa ett koncept för ett enkelt mobilspel som utspelar sig på Lagmansgymnasiet. Konceptet ska innehålla spelets mål, en huvudkaraktär och en \"specialförmåga\" karaktären har. Försök sedan skapa spelet med hjälp av AI.", xp: 50 },
             ]
         };
 
