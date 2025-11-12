@@ -1,1 +1,282 @@
+<!DOCTYPE html>
+<html lang="sv">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI & Mattesymboler</title>
+    <!-- Importerar Tailwind CSS för styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Importerar Lucide-ikoner -->
+    <script src="https://unpkg.com/lucide-react@latest/dist/lucide.umd.js"></script>
+    <!-- Ställer in Inter-typsnittet som Tailwind använder -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-gray-800 text-white shadow-lg">
+        <div class="container mx-auto max-w-4xl px-6 py-12 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Lektionsguide: Kan din AI läsa matte?</h1>
+            <p class="text-xl text-gray-300">
+                Idag ska vi träna en AI-expert på att känna igen handskrivna siffror och se varför den misslyckas på
+                *din* handstil.
+            </p>
+        </div>
+    </header>
+
+    <!-- Huvudinnehåll -->
+    <main class="container mx-auto max-w-4xl p-6 md:p-10">
+
+        <!-- Dagens Mål -->
+        <section class="bg-white p-8 rounded-2xl shadow-xl mb-10 border border-gray-200">
+            <h2 class="text-3xl font-bold text-indigo-600 mb-6 flex items-center">
+                <i data-lucide="Target" class="w-8 h-8 mr-3"></i>
+                Dagens Mål
+            </h2>
+            <ul class="space-y-4 text-lg">
+                <li class="flex items-start">
+                    <i data-lucide="CheckCircle" class="w-6 h-6 mr-3 text-green-500 flex-shrink-0 mt-1"></i>
+                    <span>Träna en AI-modell på ett professionellt dataset med tusentals bilder.</span>
+                </li>
+                <li class="flex items-start">
+                    <i data-lucide="Brain" class="w-6 h-6 mr-3 text-indigo-500 flex-shrink-0 mt-1"></i>
+                    <span>Praktiskt förstå varför en AI-expert misslyckas (koncepten *bias* och *overfitting*).</span>
+                </li>
+                <li class="flex items-start">
+                    <i data-lucide="AlertTriangle" class="w-6 h-6 mr-3 text-yellow-500 flex-shrink-0 mt-1"></i>
+                    <span>Inse de tekniska svårigheterna med att bygga en "matte-lösar-app".</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- NY SEKTION BÖRJAR HÄR -->
+        <section class="bg-white p-8 rounded-2xl shadow-xl mb-10 border border-gray-200">
+            <h2 class="text-3xl font-bold text-indigo-600 mb-6 flex items-center">
+                <i data-lucide="Key" class="w-8 h-8 mr-3"></i>
+                Centrala Begrepp
+            </h2>
+            <div class="space-y-6">
+                <!-- Begrepp 1: Dataset -->
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Dataset (Datamängd)</h3>
+                    <p class="text-lg text-gray-700">
+                        En stor, organiserad samling data (t.ex. bilder, text eller siffror) som används för att träna
+                        och testa en AI. Vårt dataset har över 9000 bilder av handskrivna mattesymboler.
+                    </p>
+                </div>
+
+                <!-- Begrepp 2: Överanpassning -->
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Överanpassning (Overfitting)</h3>
+                    <p class="text-lg text-gray-700 mb-3">
+                        Händer när en AI-modell blir *för* bra på sin träningsdata. Den "memorerar" detaljerna i
+                        datasetet istället för att lära sig de generella reglerna. Den blir en "expert" på exakt den
+                        data den tränat på, men misslyckas på ny, okänd data.
+                    </p>
+                    <p class="text-lg text-gray-700 italic bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <strong>Koppling till lektionen:</strong> Detta är exakt vad vi ska testa i **Del 2**. Vi kollar
+                        om vår AI är överanpassad när vi visar den *vår* handstil (ny data), som den aldrig sett förut.
+                    </p>
+                </div>
+
+                <!-- Begrepp 3: Bias -->
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Bias (Skevhet / Partiskhet)</h3>
+                    <p class="text-lg text-gray-700 mb-3">
+                        När ett dataset inte representerar hela verkligheten på ett rättvist sätt. Om vårt dataset bara
+                        innehåller en viss typ av handstil (t.ex. prydlig högerhänt stil), kommer AI:n att utveckla en
+                        "favoritism" (bias) för den stilen och vara sämre på alla andra.
+                    </p>
+                    <p class="text-lg text-gray-700 italic bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <strong>Koppling till lektionen:</strong> Vårt dataset har en inbyggd bias – det innehåller
+                        *inte* era unika handstilar. Därför förväntar vi oss att modellen är partisk *mot* er handstil.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <!-- NY SEKTION SLUTAR HÄR -->
+
+        <!-- Verktyg -->
+        <section class="bg-white p-8 rounded-2xl shadow-xl mb-10 border border-gray-200">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
+                <i data-lucide="Wrench" class="w-8 h-8 mr-3"></i>
+                Verktygslåda
+            </h2>
+            <div class="grid md:grid-cols-3 gap-6 text-center">
+                <div class="bg-gray-50 p-6 rounded-lg border">
+                    <i data-lucide="Computer" class="w-12 h-12 text-indigo-600 mx-auto mb-3"></i>
+                    <h3 class="text-xl font-semibold">Teachable Machine</h3>
+                    <p class="text-gray-600">Vår AI-plattform i webbläsaren.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg border">
+                    <i data-lucide="Database" class="w-12 h-12 text-indigo-600 mx-auto mb-3"></i>
+                    <h3 class="text-xl font-semibold">Matte-dataset</h3>
+                    <p class="text-gray-600">9000+ bilder (länk från läraren).</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg border">
+                    <i data-lucide="Pen" class="w-12 h-12 text-indigo-600 mx-auto mb-3"></i>
+                    <h3 class="text-xl font-semibold">Papper & Penna</h3>
+                    <p class="text-gray-600">För att skapa vår egen testdata.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Steg-för-steg Guide -->
+        <h2 class="text-4xl font-bold text-center text-gray-800 mb-10 pt-4">Instruktioner</h2>
+
+        <!-- Del 1: Träna -->
+        <section class="bg-white p-8 rounded-2xl shadow-xl mb-10 border border-gray-200">
+            <h3 class="text-3xl font-bold text-indigo-600 mb-6 flex items-center">
+                <span
+                    class="bg-indigo-600 text-white rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold mr-4">1</span>
+                Träna er "Matte-Expert"
+            </h3>
+            <ol class="list-decimal list-inside space-y-4 text-lg text-gray-700 pl-4">
+                <li>
+                    <strong class="text-gray-900">Starta projektet:</strong> Gå till <a
+                        href="https://teachablemachine.withgoogle.com/" target="_blank"
+                        class="text-indigo-600 font-medium hover:underline">Teachable Machine</a> och välj **Image
+                    Project** (Standard image model).
+                </li>
+                <li>
+                    <strong class="text-gray-900">Skapa klasser:</strong> Er lärare ger er 4-5 klasser att använda
+                    (t.ex. `1`, `2`, `+`, `-`). Döp om "Class 1" etc. till dessa namn (t.ex. <code
+                        class="bg-gray-200 px-2 py-1 rounded-md text-base">Klass 1</code>, <code
+                        class="bg-gray-200 px-2 py-1 rounded-md text-base">Klass 2</code>, <code
+                        class="bg-gray-200 px-2 py-1 rounded-md text-base">Klass Plus</code>).
+                </li>
+                <li>
+                    <strong class="text-gray-900">Ladda upp träningsdata:</strong> För varje klass (t.ex. "Klass 1"),
+                    klicka på <strong class="text-indigo-700">Upload</strong>. Navigera till rätt mapp i datasetet
+                    (t.ex. mappen `1`) och ladda upp 50-100 bilder. Upprepa för alla era klasser.
+                </li>
+                <li>
+                    <strong class="text-gray-900">Träna modellen:</strong> Klicka på <strong
+                        class="text-indigo-700">Train Model</strong>. Vänta tills träningen är klar. Detta kan ta en
+                    minut.
+                </li>
+            </ol>
+        </section>
+
+        <!-- Del 2: Testa -->
+        <section class="bg-white p-8 rounded-2xl shadow-xl mb-10 border border-gray-200">
+            <h3 class="text-3xl font-bold text-indigo-600 mb-6 flex items-center">
+                <span
+                    class="bg-indigo-600 text-white rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold mr-4">2</span>
+                Testa och "Attackera" er Expert
+            </h3>
+            <p class="text-lg text-gray-700 mb-6">Nu ska vi se hur bra er AI blev. Vi ska testa den på två sätt.</p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Test 1 -->
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                    <h4 class="text-xl font-semibold text-gray-900 mb-3">Test 1: Data mot Data (Det lätta testet)</h4>
+                    <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                        <li>I "Preview"-fönstret, välj fliken <strong class="text-gray-900">File</strong>.</li>
+                        <li>Ladda upp en *annan* bild från datasetet (en ni *inte* använde för träning).</li>
+                        <li><strong class="text-gray-900">Notera:</strong> Modellen gissar troligen rätt med 99-100%
+                            säkerhet.</li>
+                    </ol>
+                </div>
+                <!-- Test 2 -->
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                    <h4 class="text-xl font-semibold text-gray-900 mb-3">Test 2: Verkligheten mot AI:n (Det svåra)</h4>
+                    <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                        <li>Ta fram papper och penna. Skriv era siffror/symboler (en per lapp).</li>
+                        <li>Byt till fliken <strong class="text-gray-900">Webcam</strong> i "Preview".</li>
+                        <li>Håll upp era lappar.</li>
+                        <li><strong class="text-gray-900">Notera:</strong> Vad händer nu? Är modellen lika säker? Gissar
+                            den fel?</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- Del 3: Diskussion -->
+        <section class="bg-white p-8 rounded-2xl shadow-xl mb-10 border border-gray-200">
+            <h3 class="text-3xl font-bold text-indigo-600 mb-6 flex items-center">
+                <span
+                    class="bg-indigo-600 text-white rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold mr-4">3</span>
+                Diskussion och Analys
+            </h3>
+            <p class="text-lg text-gray-700 mb-6">Diskutera i gruppen vad ni precis såg. Fundera på:</p>
+            <ul class="list-disc list-inside space-y-4 text-lg text-gray-700 pl-4">
+                <li>
+                    <strong class="text-gray-900">Varför</strong> var AI:n 100% säker på dataset-bilderna men helt
+                    förvirrad av *er* handstil?
+                </li>
+                <li>
+                    <strong class="text-gray-900">Hur</strong> skulle ni lösa problemet? Om ni ville att AI:n skulle bli
+                    expert på just *er* handstil, vad är det första ni måste göra?
+                </li>
+                <li>
+                    <strong class="text-gray-900">Nästa nivå?</strong> Er modell kan känna igen *en* siffra. Varför kan
+                    den inte läsa ett helt tal som <code
+                        class="bg-gray-200 px-2 py-1 rounded-md text-base">12 + 5</code>? Vad är det svåra problemet?
+                </li>
+            </ul>
+        </section>
+
+        <!-- Bonusutmaning -->
+        <section class="bg-white p-8 rounded-2xl shadow-xl mb-10 border border-gray-200">
+            <h3 class="text-3xl font-bold text-indigo-600 mb-6 flex items-center">
+                <i data-lucide="Rocket" class="w-8 h-8 mr-3"></i>
+                Bonusutmaning: Förbättra er modell!
+            </h3>
+            <p class="text-lg text-gray-700 mb-6">Kan ni lösa problemet från Test 2? Prova detta:</p>
+            <ol class="list-decimal list-inside space-y-4 text-lg text-gray-700 pl-4">
+                <li>Gå tillbaka till era klasser (t.ex. "Klass 1").</li>
+                <li>Använd <strong class="text-gray-900">Webcam</strong>-knappen *under* era uppladdade bilder för att
+                    lägga till 15-20 bilder av *er egen* handstil.</li>
+                <li>Gör samma sak för alla era andra klasser.</li>
+                <li>Klicka på <strong class="text-indigo-700">Train Model</strong> igen.</li>
+                <li>Testa mot er webbkamera igen. Blev det någon skillnad?</li>
+            </ol>
+        </section>
+
+        <!-- NY SEKTION BÖRJAR HÄR -->
+        <section class="bg-gray-900 text-white p-8 rounded-2xl shadow-xl mb-10 border border-gray-700">
+            <h3 class="text-3xl font-bold text-green-400 mb-6 flex items-center">
+                <i data-lucide="GraduationCap" class="w-8 h-8 mr-3"></i>
+                Nästa Nivå: Bygg en "Matte-Kollare" Mobilapp
+            </h3>
+            <p class="text-lg text-gray-300 mb-6">
+                En tränad modell är inte fast i Teachable Machine. Den är gjord för att exporteras och användas i
+                riktiga projekt. Vi kan använda ett "no-code"-verktyg för att bygga en fungerande
+                mobilapp, utan att skriva någon kod.
+            </p>
+
+            <div class="bg-gray-800 p-6 rounded-lg mt-6 border border-gray-600">
+                <h4 class="text-2xl font-semibold text-white mb-4 flex items-center">
+                    <i data-lucide="Smartphone" class="w-7 h-7 mr-2 text-green-400"></i>
+                    Er uppgift (No-Code App)
+                </h4>
+                <p class="text-gray-300 text-lg mb-6">
+                    Bygg en app som kan använda telefonens kamera för att identifiera vilken siffra eller symbol du
+                    visar den.
+                </p>
+            </div>
+        </section>
+        <!-- NY SEKTION SLUTAR HÄR -->
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-10 text-gray-500 text-sm">
+        <p>Lektionsguide skapad för AI Nivå 1.</p>
+    </footer>
+
+    <!-- Initierar Lucide-ikoner -->
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>
