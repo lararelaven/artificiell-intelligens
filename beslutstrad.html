@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lektion: Beslutsträd med Iris-dataset</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .workflow-box {
+            @apply bg-white border-2 border-blue-500 rounded-lg p-3 text-center shadow-md transition-transform hover:scale-105;
+        }
+
+        .arrow {
+            @apply text-gray-500 font-bold text-2xl mx-2;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 p-4 md:p-10">
+    <div class="max-w-5xl mx-auto">
+
+        <!-- Huvudrubrik -->
+        <header class="bg-blue-700 text-white p-8 rounded-xl shadow-lg mb-8">
+            <h1 class="text-4xl font-bold mb-2">Lektion: Artificiell Intelligens Nivå 1</h1>
+            <h2 class="text-2xl font-light">Bygg ditt första Beslutsträd med Iris-datasetet</h2>
+        </header>
+
+        <!-- Sektion: För Läraren -->
+        <section class="bg-white p-6 rounded-xl shadow-lg mb-8">
+            <h3 class="text-2xl font-bold text-blue-800 mb-4">Till Läraren: Bakgrund & Syfte</h3>
+
+            <p class="mb-4">Denna lektion är designad för att ge eleverna en praktisk och intuitiv förståelse för
+                övervakat lärande (Supervised Learning) och klassificering, två fundamentala koncept inom AI och
+                maskininlärning.</p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Syfte & Lärandemål -->
+                <div>
+                    <h4 class="text-xl font-semibold text-gray-800 mb-2">Syfte & Lärandemål</h4>
+                    <p class="mb-3">Syftet är att avmystifiera "AI" genom att låta eleverna själva bygga en enkel, men
+                        fungerande, prediktiv modell. De går från manuell dataanalys till att använda ett visuellt
+                        verktyg (Orange) för att se hur en dator "lär sig" fatta beslut baserat på data.</p>
+                    <p class="font-semibold mb-2">Efter lektionen ska eleven kunna:</p>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700">
+                        <li>Förklara vad ett beslutsträd är och hur det används.</li>
+                        <li>Identifiera attribut (features) och en målvariabel (target) i ett dataset.</li>
+                        <li>Genomföra en enkel manuell dataanalys för att hitta mönster.</li>
+                        <li>Bygga och visualisera en enkel maskininlärningsmodell i Orange.</li>
+                        <li>Tolka resultatet från modellen (t.ex. noggrannhet och vilka attribut som är viktigast).</li>
+                    </ul>
+                </div>
+
+                <!-- Centrala Begrepp -->
+                <div>
+                    <h4 class="text-xl font-semibold text-gray-800 mb-2">Centrala Begrepp (Översiktligt)</h4>
+                    <dl class="space-y-3">
+                        <div>
+                            <dt class="font-semibold text-gray-700">Dataset:</dt>
+                            <dd class="text-gray-600">En samling data, oftast i tabellform. Iris-datasetet är ett
+                                "Hello, World!" inom maskininlärning.</dd>
+                        </div>
+                        <div>
+                            <dt class="font-semibold text-gray-700">Attribut (Feature):</dt>
+                            <dd class="text-gray-600">En "kolumn" i datan som vi använder för att göra en förutsägelse
+                                (t.ex. "kronbladets längd").</dd>
+                        </div>
+                        <div>
+                            <dt class="font-semibold text-gray-700">Målvariabel (Target):</dt>
+                            <dd class="text-gray-600">Det vi vill förutsäga (t.ex. "blomart").</dd>
+                        </div>
+                        <div>
+                            <dt class="font-semibold text-gray-700">Klassificering (Classification):</dt>
+                            <dd class="text-gray-600">Processen att sortera data i förbestämda kategorier (t.ex.
+                                "Setosa", "Versicolor" eller "Virginica").</dd>
+                        </div>
+                        <div>
+                            <dt class="font-semibold text-gray-700">Beslutsträd (Decision Tree):</dt>
+                            <dd class="text-gray-600">En AI-modell som ser ut som ett flödesschema. Den ställer en serie
+                                "om... så..."-frågor för att komma fram till ett beslut.</dd>
+                        </div>
+                        <div>
+                            <dt class="font-semibold text-gray-700">Noggrannhet (Accuracy):</dt>
+                            <dd class="text-gray-600">Ett mått på hur ofta modellen har rätt i sina förutsägelser. Anges
+                                ofta i procent.</dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+            <!-- NYTT AVSNITT: Förtydligande "Hur är detta AI?" -->
+            <div class="mt-8 pt-6 border-t border-gray-200">
+                <h4 class="text-xl font-semibold text-gray-800 mb-2">Kopplingen till AI</h4>
+                <p class="mb-3 text-gray-700">Kopplingen till AI kan kännas oklar
+                    eftersom "AI" ofta målas upp som något extremt komplext (som ChatGPT eller självkörande bilar). Den
+                    här övningen visar dock själva *grundprincipen* för en enormt viktig del av AI, nämligen
+                    **Maskininlärning (Machine Learning)**.</p>
+                <p class="mb-3 text-gray-700">Skillnaden är:</p>
+                <ul class="list-disc list-inside space-y-2 mb-3">
+                    <li><strong>Traditionell Programmering:</strong> En människa skriver *exakta regler* (t.ex.
+                        <code>IF petal.length < 2.5 THEN setosa</code>) och matar in i datorn. Datorn följer bara order.
+                        (Detta är vad eleverna gör i "Del 1: Papper & Penna").
+                    </li>
+                    <li><strong>Maskininlärning (AI):</strong> En människa ger datorn *data* (Iris-datasetet) och ett
+                        *mål* (förutsäg "blomart"). Datorn *hittar själv* de bästa reglerna genom att analysera datan.
+                    </li>
+                </ul>
+                <p class="font-semibold text-gray-700">"AI:n" i den här övningen är alltså inte själva beslutsträdet,
+                    utan *algoritmen inuti "Tree"-widgeten*. Den algoritmen testar matematiskt tusentals möjliga frågor
+                    (t.ex. "petal length < 2.0?", "petal length < 2.1?" ... "sepal width > 3.0?" ) för att hitta den
+                        fråga som *bäst* delar upp datan. Den "lär sig" av datan för att *skapa* den optimala modellen
+                        (beslutsträdet).</p>
+                        <p class="text-gray-700">Den här övningen avmystifierar AI genom att visa att det i grunden
+                            handlar om att *automatiskt hitta mönster och skapa prediktiva regler*, istället för att en
+                            människa måste programmera varje regel manuellt.</p>
+            </div>
+
+        </section>
+
+        <!-- Sektion: Lektionsaktivitet för Elever -->
+        <section class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl shadow-lg">
+            <h3 class="text-3xl font-bold text-gray-900 mb-4 text-center">Lektionsaktivitet: Häng med, nu bygger vi en
+                AI!</h3>
+
+            <!-- 🎯 Syfte med lektionen (Ersätter gammal intro) -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h4 class="text-2xl font-bold text-blue-700 mb-4">🎯 Syfte med lektionen</h4>
+                <p class="mb-4 text-gray-700">Syftet är att ge en första introduktion till hur artificiell intelligens
+                    kan fatta beslut med hjälp av beslutsträd. Du får arbeta både manuellt och med ett riktigt
+                    AI-verktyg (Orange Data Mining) för att förstå hur datorer kan hitta mönster i data och använda dem
+                    för att klassificera nya exempel.</p>
+                <p class="font-semibold text-gray-800 mb-2">Efter lektionen ska du:</p>
+                <ul class="list-disc list-inside space-y-1 text-gray-700">
+                    <li>Förstå vad ett dataset, en feature och en klass är.</li>
+                    <li>Känna till vad ett beslutsträd är och hur det används inom AI och maskininlärning.</li>
+                    <li>Själv kunna bygga ett beslutsträd – först med papper och penna, sedan i Orange.</li>
+                    <li>Kunna jämföra ditt egna resonemang med ett verkligt AI-modells resonemang.</li>
+                </ul>
+            </div>
+
+            <!-- 🧠 Kort bakgrund & Grafik (Ny sektion) -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h4 class="text-2xl font-bold text-blue-700 mb-4">🧠 Kort bakgrund: Vad är beslutsträd?</h4>
+                <p class="mb-4 text-gray-700">Ett beslutsträd är en av de mest intuitiva formerna av AI-modeller. Det
+                    fungerar ungefär som ett “20 frågor”-spel. Modellen ställer frågor som delar upp datan i mindre
+                    grupper, tills den till slut kan avgöra vilken klass ett exempel tillhör.</p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h5 class="text-lg font-semibold text-gray-800 mb-2">Några viktiga begrepp:</h5>
+                        <dl class="space-y-2">
+                            <div>
+                                <dt class="font-semibold text-gray-700">Dataset:</dt>
+                                <dd class="text-gray-600">En samling data, ofta i form av en tabell.</dd>
+                            </div>
+                            <div>
+                                <dt class="font-semibold text-gray-700">Features (egenskaper):</dt>
+                                <dd class="text-gray-600">Kolumner i datan som beskriver något, t.ex. blombladens längd.
+                                </dd>
+                            </div>
+                            <div>
+                                <dt class="font-semibold text-gray-700">Target/klass:</dt>
+                                <dd class="text-gray-600">Det vi försöker förutsäga, t.ex. vilken blomart det är.</dd>
+                            </div>
+                            <div>
+                                <dt class="font-semibold text-gray-700">Split:</dt>
+                                <dd class="text-gray-600">En fråga modellen ställer, t.ex. "Är kronbladslängden > 2,5
+                                    cm?".</dd>
+                            </div>
+                        </dl>
+                    </div>
+
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                        <h5 class="text-lg font-semibold text-gray-800 mb-2">🎨 Grafik – visuell översikt</h5>
+                        <p class="font-semibold">Beslutsträd – hur det fungerar:</p>
+                        <div class="flex justify-center my-4">
+                            <!-- Placeholder för Beslutsträdsbild -->
+                            <div
+                                class="w-full max-w-sm bg-white p-4 border border-gray-300 rounded-lg shadow-md text-sm text-center">
+                                <p class="font-bold">Rot: Är Kronbladslängd < 2.5 cm?</p>
+                                        <div class="flex justify-between mt-2">
+                                            <div class="w-1/2 p-2 border-r">Ja (Setosa)</div>
+                                            <div class="w-1/2 p-2">Nej (Fortsätt fråga)</div>
+                                        </div>
+                                        <p class="text-xs italic mt-2">[Image of Decision Tree Flowchart]</p>
+                            </div>
+                        </div>
+                        <ul class="list-disc list-inside text-gray-600 mb-3">
+                            <li><strong>Rot:</strong> första frågan som delar upp datan.</li>
+                            <li><strong>Grenar:</strong> svarsalternativ som leder vidare.</li>
+                            <li><strong>Blad:</strong> slutliga beslut (klassificeringar).</li>
+                        </ul>
+                        <p class="font-semibold">Iris-datasetets struktur:</p>
+                        <ul class="list-disc list-inside text-gray-600">
+                            <li>150 blommor</li>
+                            <li>4 egenskaper</li>
+                            <li>3 arter (Setosa, Versicolor, Virginica)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Steg 1 & 2: Manuell Analys (Ersätter gamla Del 1) -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h4 class="text-xl font-semibold text-blue-700 mb-3">Del 1: Utforska & Bygg för Hand (Papper & Penna)
+                </h4>
+
+                <h5 class="text-lg font-semibold text-gray-800 mb-3">📊 Steg 1: Utforska Iris-datan</h5>
+                <p class="mb-3">Datasetet innehåller följande egenskaper:</p>
+                <ul class="list-disc list-inside bg-gray-50 p-4 rounded-md mb-4">
+                    <li>Foderbladets längd (Sepal length)</li>
+                    <li>Foderbladets bredd (Sepal width)</li>
+                    <li>Kronbladets längd (Petal length)</li>
+                    <li>Kronbladets bredd (Petal width)</li>
+                    <li><strong>Blomart (Setosa, Versicolor eller Virginica)</strong> — detta är klassen vi ska
+                        förutsäga</li>
+                </ul>
+                <p class="font-semibold text-gray-800 mb-2">Uppgift: Titta på datan. Ser du några mönster?</p>
+                <p class="mb-2 italic text-gray-600">Exempel:</p>
+                <ul class="list-disc list-inside text-gray-600 mb-3">
+                    <li>En art som har mycket korta kronblad?</li>
+                    <li>En art som har tydligt bredare foderblad?</li>
+                </ul>
+                <p class="font-medium text-gray-700">Gör anteckningar – detta hjälper när du ska bygga ditt eget
+                    beslutsträd.</p>
+
+                <hr class="my-6">
+
+                <h5 class="text-lg font-semibold text-gray-800 mb-3">✏️ Steg 2: Skapa ett eget beslutsträd (för hand)
+                </h5>
+                <p class="mb-3">Nu ska du försöka konstruera ett beslutsträd som kan skilja blommorna åt.</p>
+                <p class="font-semibold text-gray-800 mb-2">Instruktioner:</p>
+                <ol class="list-decimal list-inside space-y-2 mb-3">
+                    <li>Bestäm vilken egenskap som verkar viktigast att börja med.</li>
+                    <li>Dela upp datan genom att ställa en fråga, t.ex.: ”Är kronbladslängden < 2 cm?”</li>
+                    <li>Skapa nya grenar med nya frågor.</li>
+                    <li>Fortsätt tills du når tre blad (slutpunkter), en för varje art.</li>
+                </ol>
+                <p class="font-semibold text-gray-800 mb-2">Tips:</p>
+                <ul class="list-disc list-inside text-gray-600">
+                    <li>Försök att använda så få frågor som möjligt.</li>
+                    <li>Varje fråga ska minska osäkerheten.</li>
+                </ul>
+            </div>
+
+            <!-- Steg 3: Bygga i Orange (Omdöpt från Del 2) -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h4 class="text-xl font-semibold text-blue-700 mb-3">Del 2: Bygg & Utvärdera Modellen i Orange</h4>
+                <p class="mb-4">Nu ska vi se hur en dator löser samma problem! Vi använder programmet <a
+                        href="https://orangedatamining.com/download/" target="_blank"
+                        class="text-blue-600 hover:underline font-semibold">Orange Data Mining</a>. Det är som att bygga
+                    med digitala LEGO-bitar.</p>
+
+                <p class="font-semibold text-gray-800 mb-3">Följ dessa steg i Orange:</p>
+
+                <div class="space-y-4">
+                    <!-- Steg för Orange -->
+                    <div class="flex items-start">
+                        <span
+                            class="flex-shrink-0 w-8 h-8 bg-blue-600 text-white font-bold rounded-full flex items-center justify-center mr-3">1</span>
+                        <div>
+                            <strong class="text-gray-800">Ladda datasetet:</strong> Dra ut en
+                            "<strong>Dataset</strong>"-widget på den tomma ytan. Dubbelklicka på den och välj
+                            "<strong>iris.tab</strong>" från listan.
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <span
+                            class="flex-shrink-0 w-8 h-8 bg-blue-600 text-white font-bold rounded-full flex items-center justify-center mr-3">2</span>
+                        <div>
+                            <strong class="text-gray-800">Välj kolumner (Viktigt!):</strong> Dra ut "<strong>Select
+                                Columns</strong>". Koppla "Dataset" till den. Dubbelklicka. Se till att de fyra måtten
+                            (sepal, petal) är under "<strong>Features</strong>" (Attribut) och att
+                            "<strong>iris</strong>" (blomarten) är under "<strong>Target</strong>" (Målvariabel). Det är
+                            detta vi vill förutsäga!
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <span
+                            class="flex-shrink-0 w-8 h-8 bg-blue-600 text-white font-bold rounded-full flex items-center justify-center mr-3">3</span>
+                        <div>
+                            <strong class="text-gray-800">Skapa (träna) beslutsträdet:</strong> Dra ut en
+                            "<strong>Tree</strong>"-widget. Koppla "Select Columns" till "Tree". Klart! Modellen är nu
+                            tränad på datan.
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <span
+                            class="flex-shrink-0 w-8 h-8 bg-blue-600 text-white font-bold rounded-full flex items-center justify-center mr-3">4</span>
+                        <div>
+                            <strong class="text-gray-800">Visualisera trädet:</strong> Dra ut "<strong>Tree
+                                Viewer</strong>". Koppla "Tree" till "Tree Viewer". Dubbelklicka på "Tree Viewer" för
+                            att se det färdiga beslutsträdet.
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <span
+                            class="flex-shrink-0 w-8 h-8 bg-blue-600 text-white font-bold rounded-full flex items-center justify-center mr-3">5</span>
+                        <div>
+                            <strong class="text-gray-800">Utvärdera trädet:</strong> Hur bra är modellen? Dra ut
+                            "<strong>Test and Score</strong>". Koppla "<strong>Select Columns</strong>" (som innehåller
+                            datan) till "Test and Score". Koppla sedan "<strong>Tree</strong>" (modellen) till "Test and
+                            Score". Dubbelklicka på "Test and Score" för att se hur bra trädet är. Titta på måttet
+                            "<strong>CA</strong>" (Classification Accuracy) – det är noggrannheten i procent!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visuellt arbetsflöde -->
+                <h5 class="text-lg font-semibold text-gray-800 mt-6 mb-3">Ditt arbetsflöde bör se ut ungefär så här:
+                </h5>
+                <div class="bg-gray-100 p-4 rounded-lg overflow-x-auto">
+                    <div class="flex items-center justify-center min-w-max">
+                        <div class="workflow-box">Datasets</div>
+                        <div class="flex flex-col">
+                            <span class="arrow px-2">→</span>
+                            <span class="arrow px-2">→</span>
+                        </div>
+                        <div class="flex flex-col space-y-4">
+                            <div class="workflow-box">Data Table</div>
+                            <div class="flex items-center">
+                                <div class="workflow-box">Select Columns</div>
+                                <span class="arrow">→</span>
+                                <div class="workflow-box">Tree</div>
+                                <div class="flex flex-col">
+                                    <span class="arrow px-2">→</span>
+                                    <span class="arrow px-2">→</span>
+                                </div>
+                                <div class="flex flex-col space-y-4">
+                                    <div class="workflow-box">Tree Viewer</div>
+                                    <div class="workflow-box">Test and Score</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Steg 4: Reflektion & Bonus (Omdöpt från Del 3) -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h4 class="text-xl font-semibold text-blue-700 mb-3">Del 3: Reflektera & Jämför</h4>
+                <p class="font-semibold text-gray-800 mb-3">Reflektera (Diskutera i par):</p>
+                <ul class="list-disc list-inside space-y-2 mb-6">
+                    <li>Jämför trädet i Orange med det du ritade för hand. Liknar de varandra?</li>
+                    <li>Vilken egenskap (t.ex. "Petal length") var viktigast enligt Orange-trädet? (Det är den högst upp
+                        i trädet).</li>
+                    <li>Hur hög noggrannhet (CA) fick er modell? Är det ett bra resultat, tycker ni?</li>
+                </ul>
+
+                <!-- 🔎 Fördjupningsfrågor (Tillagd) -->
+                <div class="bg-gray-50 p-4 rounded-lg border">
+                    <h4 class="text-lg font-semibold text-gray-800 mb-3">🔎 Fördjupningsfrågor</h4>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li>Om du skulle lägga till fler features i Iris-datan – vilka skulle hjälpa modellen mest?</li>
+                        <li>Beslutsträd kan ibland bli för komplexa (overfitting). Hur tror du det påverkar modellens
+                            resultat?</li>
+                        <li>Kan du se några situationer i verkligheten där beslutsträd vore ett bra verktyg?</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- NY SEKTION: Fördjupning i Orange (Del 4) -->
+            <div class="bg-white p-6 rounded-xl shadow-lg mt-8">
+                <h4 class="text-xl font-bold text-gray-900 mb-3 text-center text-blue-700">Del 4: Fördjupning i Orange:
+                    Klassificera Ny Data</h4>
+                <p class="text-lg text-gray-700 text-center mb-6">Nu ska vi se hur bra din tränade AI-modell
+                    (Beslutsträdet) är på att förutsäga blomarter den *aldrig* sett förut. Detta är den verkliga
+                    uppgiften för AI.</p>
+
+                <!-- Övning 4: Klassificera nya data -->
+                <div class="bg-gray-50 p-6 rounded-lg shadow-inner">
+                    <h5 class="text-xl font-semibold text-blue-700 mb-3">Uppgift: Förutsäg en okänd blomma</h5>
+                    <p class="mb-3"><strong class="text-gray-800">Syfte:</strong> Att förstå hur man använder en färdig
+                        AI-modell för att göra klassificering (prediktion).</p>
+                    <p class="mb-3"><strong class="text-gray-800">Aktivitet (Orange):</strong></p>
+                    <ol class="list-decimal list-inside space-y-2 mb-4">
+                        <li>Dra ut en ny "<strong>File</strong>"-widget. Ladda datasetet "<strong>new_iris.tab</strong>"
+                            (finns i Orange). Detta dataset innehåller 3 blommor utan en känd blomart.</li>
+                        <li>Koppla den tränade modellen (utgången från "<strong>Tree</strong>"-widgeten) till en ny
+                            "<strong>Predictions</strong>"-widget.</li>
+                        <li>Koppla den nya datan (utgången från "<strong>File</strong>"-widgeten med `new_iris.tab`)
+                            till samma "<strong>Predictions</strong>"-widget.</li>
+                        <li>Dubbelklicka på "<strong>Predictions</strong>" för att se resultatet. Modellen har nu
+                            förutsagt vilken art de tre okända blommorna tillhör!</li>
+                    </ol>
+                    <p class="font-semibold text-gray-700">Koppling till AI:</p>
+                    <p class="text-gray-700">Detta kallas för *inferens* (inference) eller *prediktion*. Det är hela
+                        anledningen till att vi tränar AI-modeller: att kunna ta emot nya, okända data och snabbt fatta
+                        beslut om dem. Din modell är nu en fungerande klassificerings-AI!</p>
+                </div>
+            </div>
+
+        </section>
+    </div>
+</body>
+
+</html>
