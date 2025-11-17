@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaktiv Projektguide - NLP (Orange)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals (Background: bg-gray-50, Primary: bg-white, Accent: text-orange-700, Secondary Accent: text-blue-600) -->
+    <!-- Application Structure Plan: Appen är strukturerad som en tematisk SPA med en fast toppnavigering (Hem, Arbetsflöde, Koncept, Demo, Verktyg, FAQ) som styr visningen av olika <section>-element. Denna struktur valdes istället för en linjär rapportkopia för att separera de olika delarna av projektet: introduktionen (Hem), den praktiska processen (Arbetsflöde), de teoretiska grunderna (Koncept), och det praktiska genomförandet (Verktyg). Kärnan är "Interaktiv Demo", som direkt simulerar projektets huvudmål: att visa hur datavolym (20 vs 100 vs 300 texter) påverkar modellens prestanda (Loss-grafer och mätetal). Detta gör inlärningsmålet mer engagerande och tydligt för studenten. -->
+    <!-- Visualization & Content Choices: 
+        - Rapportinfo: Projektets 7-stegsprocess. -> Mål: Organisera. -> Viz/Metod: Interaktiva flikar (HTML/JS) för "Arbetsflöde". -> Interaktion: Klick på flik visar/döljer innehåll. -> Justification: Bryter ner en lång process i hanterbara steg.
+        - Rapportinfo: Teori om Överanpassning (Overfitting). -> Mål: Informera. -> Viz/Metod: Chart.js Linjediagram (Canvas). -> Interaktion: Statisk visning i "Nyckelkoncept". -> Justification: Visualiserar det abstrakta konceptet tydligt.
+        - Rapportinfo: Projektets huvudmål (20 vs 100 vs 300 texter). -> Mål: Jämföra/Demonstrera. -> Viz/Metod: "Interaktiv Demo" med Kontrollknappar (HTML), ett dynamiskt Chart.js Linjediagram (Canvas), dynamiska mätetal (HTML) och dynamisk analystext (HTML). -> Interaktion: Klick på knapp (20, 100, 300) anropar JS-funktion `updateDemo(level)` som uppdaterar diagramdata, mätetal och analystext från ett simulerat dataobjekt. -> Justification: Detta är appens kärna och visualiserar direkt rapportens viktigaste lärdom på ett interaktivt sätt.
+        - Rapportinfo: Mätetal (Accuracy, F1, etc.). -> Mål: Informera. -> Viz/Metod: HTML-lista med definitioner och ikoner. -> Interaktion: Statisk. -> Justification: Tydlig och lättläst referens.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 640px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        section {
+            display: none;
+        }
+        section.active {
+            display: block;
+        }
+        .nav-link {
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease-in-out;
+        }
+        .nav-link.active {
+            border-bottom-color: #ea580c; /* Orange 700 */
+            color: #ea580c;
+            font-weight: 600;
+        }
+        .nav-link:hover {
+            color: #ea580c;
+        }
+        .tab-button {
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease-in-out;
+            color: #6b7280;
+        }
+        .tab-button.active {
+            border-bottom-color: #fbbf24;
+            color: #1f2937;
+            font-weight: 500;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .demo-button {
+            cursor: pointer;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            background-color: #f3f4f6;
+            color: #374151;
+            transition: all 0.2s ease-in-out;
+            border: 2px solid transparent;
+        }
+        .demo-button.active {
+            background-color: #ffedd5; /* Orange 100 */
+            color: #c2410c; /* Orange 800 */
+            border-color: #fdba74; /* Orange 300 */
+        }
+        .demo-button:hover:not(.active) {
+            background-color: #e5e7eb;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="text-2xl font-bold text-orange-700">Orange</span>
+                    <span class="text-2xl font-semibold text-gray-700 ml-2">Projektguide</span>
+                </div>
+                <div class="hidden md:flex md:items-center md:space-x-4">
+                    <a class="nav-link active" data-section="hem">Hem</a>
+                    <a class="nav-link" data-section="arbetsflode">Arbetsflöde</a>
+                    <a class="nav-link" data-section="koncept">Nyckelkoncept</a>
+                    <a class="nav-link" data-section="demo">Interaktiv Demo</a>
+                    <a class="nav-link" data-section="verktyg">Verktyg & Data</a>
+                    <a class="nav-link" data-section="faq">FAQ & Checklista</a>
+                </div>
+                <div class="md:hidden">
+                    <select id="mobile-nav" class="rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">
+                        <option value="hem">Hem</option>
+                        <option value="arbetsflode">Arbetsflöde</option>
+                        <option value="koncept">Nyckelkoncept</option>
+                        <option value="demo">Interaktiv Demo</option>
+                        <option value="verktyg">Verktyg & Data</option>
+                        <option value="faq">FAQ & Checklista</option>
+                    </select>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <section id="hem" class="active">
+            <div class="text-center bg-white p-8 md:p-12 rounded-lg shadow-lg">
+                <h1 class="text-4xl md:text-5xl font-bold text-orange-800 mb-4">Projekt 1: NLP i Praktiken med Orange</h1>
+                <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
+                    <strong>Välkommen till ditt första AI-projekt! Denna guide hjälper dig att förstå hur du bygger en egen AI-modell för att sortera texter, och hur mängden data påverkar dess prestanda, med hjälp av det visuella verktyget Orange Data Mining.</strong>
+                </p>
+            </div>
+
+            <div class="mt-12">
+                <h2 class="text-3xl font-semibold text-center mb-8">Välj din Uppgift</h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
+                        <div class="text-3xl mb-3">💬</div>
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Sentimentanalys</h3>
+                        <p class="text-gray-600"><strong>Lär modellen att avgöra om en text (t.ex. en kundrecension) är `Positiv`, `Negativ` eller `Neutral`.</strong></p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
+                        <div class="text-3xl mb-3">📰</div>
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Ämnesklassificering</h3>
+                        <p class="text-gray-600"><strong>Lär modellen att sortera nyhetstexter i kategorier som `Politik`, `Sport` eller `Kultur`.</strong></p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
+                        <div class="text-3xl mb-3">🚫</div>
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Spamfiltrering</h3>
+                        <p class="text-gray-600"><strong>Lär modellen att känna igen om ett e-postmeddelande är skräppost (`Spam`) eller inte (`Inte Spam`).</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="arbetsflode">
+            <h2 class="text-4xl font-bold text-center mb-2">Projektets Arbetsflöde i Orange</h2>
+            <p class="text-lg text-gray-600 text-center mb-8 max-w-3xl mx-auto">
+                <strong>Detta projekt följer en strukturerad process i sju steg, från att samla in data i CSV-format till att analysera din färdiga modell med visuella widgets. Följ stegen nedan för att bygga och förstå din AI.</strong>
+            </p>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <div class="flex flex-wrap border-b border-gray-200" id="workflow-tabs">
+                    <button class="tab-button active" data-tab="steg1">1. Välj Uppgift</button>
+                    <button class="tab-button" data-tab="steg2">2. Skapa Data</button>
+                    <button class="tab-button" data-tab="steg3">3. Utöka Data</button>
+                    <button class="tab-button" data-tab="steg4">4. Bygg Arbetsyta</button>
+                    <button class="tab-button" data-tab="steg5">5. Utvärdera</button>
+                    <button class="tab-button" data-tab="steg6">6. Förstå</button>
+                    <button class="tab-button" data-tab="steg7">7. Rapportera</button>
+                </div>
+                <div class="mt-6">
+                    <div id="steg1" class="tab-content active">
+                        <h3 class="text-2xl font-semibold text-orange-700 mb-3">Steg 1: Välj Uppgift</h3>
+                        <p class="text-gray-700"><strong>Börja med att bestämma vilket problem din AI ska lösa. Välj antingen Sentimentanalys, Ämnesklassificering eller Spamfiltrering. Ditt val avgör vilka kategorier (klasser) du kommer att använda i ditt CSV-dataset.</strong></p>
+                    </div>
+                    <div id="steg2" class="tab-content">
+                        <h3 class="text-2xl font-semibold text-orange-700 mb-3">Steg 2: Skapa ditt CSV-Dataset</h3>
+                        <p class="text-gray-700"><strong>Dags att samla in data. Använd ett AI-verktyg som ChatGPT för att generera dina texter. Börja smått: skapa 20 texter per kategori. Organisera datan i en tabell (t.ex. CSV eller Excel) med en kolumn för TEXT och en kolumn för KATEGORI.</strong></p>
+                    </div>
+                    <div id="steg3" class="tab-content">
+                        <h3 class="text-2xl font-semibold text-orange-700 mb-3">Steg 3: Utöka Datanivåer</h3>
+                        <p class="text-gray-700"><strong>För att se hur datamängden påverkar resultatet kommer du att upprepa processen med större dataset. Efter 20 texter/klass, utöka till 100 texter/klass och slutligen till 300 texter/klass. Kom ihåg att hålla klasserna balanserade (lika många texter i varje).</strong></p>
+                    </div>
+                    <div id="steg4" class="tab-content">
+                        <h3 class="text-2xl font-semibold text-orange-700 mb-3">Steg 4: Bygg Arbetsytan (Workflow) i Orange</h3>
+                        <p class="text-gray-700"><strong>Skapa din arbetsyta. Börja med widgeten **File** (för att ladda in din CSV). Koppla den till **Corpus**, sedan till **Preprocess Text** (för rening) och slutligen till en lämplig inlärningsalgoritm (t.ex. **Naive Bayes** eller **Logistic Regression**), innan du ansluter till **Test and Score**.</strong></p>
+                    </div>
+                    <div id="steg5" class="tab-content">
+                        <h3 class="text-2xl font-semibold text-orange-700 mb-3">Steg 5: Utvärdera Modellen med Test and Score</h3>
+                        <p class="text-gray-700"><strong>Använd widgeten **Test and Score** för att se mätetal som Accuracy, F1 och Area under ROC. Anslut widgeten **Confusion Matrix** för att visuellt se exakt vilka klasser modellen blandar ihop, vilket hjälper dig att förstå modellens svagheter.</strong></p>
+                    </div>
+                    <div id="steg6" class="tab-content">
+                        <h3 class="text-2xl font-semibold text-orange-700 mb-3">Steg 6: Förstå Överanpassning (Overfitting)</h3>
+                        <p class="text-gray-700"><strong>Analysera dina resultat. Om modellen har mycket högre träffsäkerhet (Accuracy) i **Test and Score** när du använder "Test on training data" jämfört med "Cross-validation", är den troligen "överanpassad". Detta är ett nyckelkoncept som du lär dig mer om i nästa flik.</strong></p>
+                    </div>
+                    <div id="steg7" class="tab-content">
+                        <h3 class="text-2xl font-semibold text-orange-700 mb-3">Steg 7: Skriv Rapporten</h3>
+                        <p class="text-gray-700"><strong>Sammanfatta dina fynd. Följ rapportmallen och beskriv din metod (Orange-arbetsyta), dina resultat (mätetal och Confusion Matrix från de olika nivåerna), din analys av överanpassning och dina reflektioner kring etik och bias i AI-modeller.</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="koncept">
+            <h2 class="text-4xl font-bold text-center mb-2">Nyckelkoncept i Projektet</h2>
+            <p class="text-lg text-gray-600 text-center mb-8 max-w-3xl mx-auto">
+                <strong>För att lyckas med projektet behöver du förstå två saker: hur man känner igen en dålig modell (överanpassning) och hur man mäter en bra modell (mätetal).</strong>
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Vad är Överanpassning (Overfitting)?</h3>
+                    <p class="text-gray-600 mb-4"><strong>Överanpassning är när en modell lär sig träningsdatan *för* bra, nästan utantill. Den blir en expert på exakt de exempel den har sett, men misslyckas totalt när den ser ny, liknande data. Det är som att plugga utantill till ett prov istället för att förstå koncepten.</strong></p>
+                    <p class="text-gray-600 mb-4"><strong>Du känner igen det när Training Loss (blå linje) fortsätter sjunka, medan Validation Loss (gul linje) planar ut eller börjar stiga. Detta gap visar att modellen tappar förmågan att generalisera. I Orange märks det genom en stor skillnad mellan "Test on training data" och "Cross-validation" i widgeten Test and Score.</strong></p>
+                    <div class="chart-container" style="height: 250px;">
+                        <canvas id="overfitChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Hur Mäts Prestanda?</h3>
+                    <p class="text-gray-600 mb-4"><strong>Vi använder mätetal för att se hur bra modellen är. 100% accuracy är inte alltid hela sanningen.</strong></p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">🎯</span>
+                            <div>
+                                <h4 class="font-semibold text-gray-700">Accuracy (Träffsäkerhet)</h4>
+                                <p class="text-gray-600"><strong>Hur många procent av *alla* gissningar var korrekta? (T.ex. 90 av 100 gissningar var rätt).</strong></p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">🔍</span>
+                            <div>
+                                <h4 class="font-semibold text-gray-700">Precision (Precision)</h4>
+                                <p class="text-gray-600"><strong>Av alla gånger modellen gissade "Positiv", hur många var *faktiskt* positiva? (Hög precision = få falska positiva).</strong></p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">📈</span>
+                            <div>
+                                <h4 class="font-semibold text-gray-700">Recall (Täckning)</h4>
+                                <p class="text-gray-600"><strong>Av alla texter som *faktiskt var* "Positiva", hur många hittade modellen? (Hög recall = få falska negativa).</strong></p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">⚖️</span>
+                            <div>
+                                <h4 class="font-semibold text-gray-700">F1-Score</h4>
+                                <p class="text-gray-600"><strong>Ett balanserat medelvärde av Precision och Recall. Ofta det bästa måttet för att bedöma modellens övergripande prestanda.</strong></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="demo">
+            <h2 class="text-4xl font-bold text-center mb-2">Interaktiv Demo: Data vs. Resultat</h2>
+            <p class="text-lg text-gray-600 text-center mb-8 max-w-3xl mx-auto">
+                <strong>Detta är projektets kärna. Klicka på knapparna nedan för att *simulera* hur din modells resultat förändras när du lägger till mer data. Se hur graferna och mätetalen reagerar. Observera att Orange inte visar Loss-grafer på samma sätt, men principen för överanpassning kvarstår.</strong>
+            </p>
+
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <div class="flex justify-center space-x-2 md:space-x-4 mb-8" id="demo-controls">
+                    <button class="demo-button active" data-level="1">Nivå 1: 20 texter/klass</button>
+                    <button class="demo-button" data-level="2">Nivå 2: 100 texter/klass</button>
+                    <button class="demo-button" data-level="3">Nivå 3: 300 texter/klass</button>
+                </div>
+
+                <div class="grid lg:grid-cols-5 gap-6">
+                    <div class="lg:col-span-3">
+                        <h3 class="text-xl font-semibold text-center mb-3" id="demo-chart-title">Resultat: Nivå 1 (20 texter)</h3>
+                        <div class="chart-container">
+                            <canvas id="lossChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2">
+                        <h3 class="text-xl font-semibold text-center mb-3">Simulerade Mätetal (Test and Score)</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-semibold text-gray-700">Accuracy</span>
+                                    <span class="font-semibold text-orange-700" id="metric-accuracy">100.00%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-4">
+                                    <div id="bar-accuracy" class="bg-orange-600 h-4 rounded-full" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-semibold text-gray-700">F1-Score</span>
+                                    <span class="font-semibold text-orange-700" id="metric-f1">100.00%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-4">
+                                    <div id="bar-f1" class="bg-orange-600 h-4 rounded-full" style="width: 100%"></div>
+                                </div>
+                            </div>
+
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-6">
+                                <h4 class="font-semibold text-blue-800 mb-2">Analys av Resultatet</h4>
+                                <p class="text-sm text-blue-700" id="analysis-text">
+                                    <strong>Modellen rapporterar 100% på allt! Detta ser perfekt ut, men är en varningsflagga. Med så lite data har modellen troligen blivit **överanpassad**. Den har memorerat träningsdatan men kommer att prestera dåligt på nya, okända texter. I Orange skulle detta synas som en stor skillnad i Accuracy mellan "Test on training data" (hög) och "Cross-validation" (låg).</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="verktyg">
+            <h2 class="text-4xl font-bold text-center mb-2">Verktyg & Datahantering</h2>
+            <p class="text-lg text-gray-600 text-center mb-8 max-w-3xl mx-auto">
+                <strong>Här är de praktiska detaljerna du behöver för att skapa ditt dataset och använda Orange Data Mining.</strong>
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">1. Verktyget: Orange Data Mining</h3>
+                    <ul class="space-y-3 list-disc list-inside text-gray-600">
+                        <li><strong>Ladda ner och installera Orange från [https://orangedatamining.com/](https://orangedatamining.com/).</strong></li>
+                        <li><strong>Gå till Options -> Add-ons och installera **Text Mining**-tillägget. Detta är nödvändigt för NLP-widgetarna.</strong></li>
+                        <li><strong>Börja med widgeten **File** (Fil) för att ladda in din CSV-data.</strong></li>
+                        <li><strong>Bygg din analys genom att koppla ihop widgets i den visuella arbetsytan (t.ex. File -> Corpus -> Preprocess Text -> Test and Score).</strong></li>
+                        <li><strong>Använd widgeten **Confusion Matrix** för att analysera felklassningarna.</strong></li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">2. Datastruktur (CSV-format)</h3>
+                    <p class="text-gray-600 mb-4"><strong>Orange läser dina data från en enda fil (CSV, Excel). Filen *måste* innehålla en textkolumn och en kategorikolumn som Orange identifierar som målvariabel.</strong></p>
+                    <div class="bg-gray-100 p-4 rounded-lg border border-gray-300 font-mono text-sm text-gray-700">
+                        <div class="flex items-center">
+                            <span class="text-lg mr-2">📊</span>
+                            <span class="font-semibold">Dataset.csv (Exempel)</span>
+                        </div>
+                        <div class="ml-4 pl-4 mt-2 space-y-2">
+                            <div class="grid grid-cols-2 border-b border-gray-400 pb-1 font-semibold text-black">
+                                <span>TEXT (Feature)</span>
+                                <span>KATEGORI (Target)</span>
+                            </div>
+                            <div class="grid grid-cols-2">
+                                <span>"Helt fantastisk produkt!"</span>
+                                <span class="text-green-700">Positiv</span>
+                            </div>
+                            <div class="grid grid-cols-2">
+                                <span>"Försändelsen var försenad."</span>
+                                <span class="text-blue-700">Neutral</span>
+                            </div>
+                            <div class="grid grid-cols-2">
+                                <span>"Slutade fungera efter en vecka."</span>
+                                <span class="text-red-700">Negativ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 bg-white rounded-lg shadow-lg p-6 md:p-8">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">3. Tips för Datagenerering (ChatGPT)</h3>
+                    <p class="text-gray-600 mb-4"><strong>Använd en AI för att snabbt skapa ditt dataset. Var specifik i din prompt för att få bra och varierade data i ett format som är lätt att klistra in i Excel/CSV.</strong></p>
+                    <div class="bg-gray-800 text-gray-100 p-4 rounded-lg font-mono text-sm relative">
+                        <button onclick="copyPrompt()" class="absolute top-2 right-2 bg-gray-600 text-gray-200 px-2 py-1 rounded text-xs hover:bg-gray-500">Kopiera</button>
+                        <code id="prompt-text">
+                            Skapa ett dataset med 100 svenska produktrecensioner i tre kategorier: Positiv, Neutral, Negativ.<br><br>
+                            
+                            Krav:<br>
+                            1. Presentera datan i en tabell med två kolumner: "TEXT" och "KATEGORI".<br>
+                            2. TEXT-kolumnen får inte innehålla citattecken, bara ren text.<br>
+                            3. KATEGORI-kolumnen ska ENDAST innehålla orden: Positiv, Neutral eller Negativ.<br>
+                            4. Var noga med att variera längd och ordförråd i texterna.<br><br>
+                            
+                            Leverera resultatet som Markdown-tabell (eller ren CSV-text) så att jag enkelt kan kopiera och klistra in i en kalkylator.
+                        </code>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="faq">
+            <h2 class="text-4xl font-bold text-center mb-2">Felsökning & Checklista</h2>
+            <p class="text-lg text-gray-600 text-center mb-8 max-w-3xl mx-auto">
+                <strong>Stött på problem? Här är vanliga lösningar. Gå sedan igenom checklistan innan du lämnar in din rapport.</strong>
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Vanliga Frågor (FAQ)</h3>
+                    <div class="space-y-4">
+                        <details class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                            <summary class="font-semibold cursor-pointer">Orange läser inte min CSV korrekt</summary>
+                            <p class="mt-2 text-gray-600"><strong>Kontrollera att kolumnen med TEXT är satt till "Feature" och kolumnen med KATEGORI är satt till "Target" i widgeten File, under fliken "Variables". Om KATEGORI är numerisk istället för text måste du markera den som "Categorical".</strong></p>
+                        </details>
+                        <details class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                            <summary class="font-semibold cursor-pointer">Min "Neutrala" klass blandas ihop med "Positiv"</summary>
+                            <p class="mt-2 text-gray-600"><strong>Din `Neutral`-data är troligen för lik den positiva. Se till att dina neutrala texter är *helt* sakliga (t.ex. "Produkten gör sitt jobb", "Standardmodell"). Undvik positiva ord som "bra" eller "smidig", även om de känns milda.</strong></p>
+                        </details>
+                        <details class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                            <summary class="font-semibold cursor-pointer">Varför får jag 100% på allt?</summary>
+                            <p class="mt-2 text-gray-600"><strong>Detta är troligen överanpassning, speciellt med 20 texter/klass. Din modell har memorerat det lilla datasetet. Resultatet är missvisande. Se den interaktiva demon. Detta syns i Orange om du väljer "Test on training data" i **Test and Score**; du behöver använda **Cross-validation** för att få ett ärligt resultat.</strong></p>
+                        </details>
+                        <details class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                            <summary class="font-semibold cursor-pointer">Hur kan en AI-modell få fördomar (bias)?</summary>
+                            <p class="mt-2 text-gray-600"><strong>Modellen blir vad den äter! Om ditt dataset innehåller snedvridna åsikter (t.ex. om alla texter om "support" är negativa) kommer modellen att lära sig den kopplingen. Om datan är skapad av en AI kan den ärva AI:ns inbyggda bias. Reflektera över detta i din rapport.</strong></p>
+                        </details>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Checklista före Inlämning</h3>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500" id="check1">
+                                <label for="check1" class="ml-3 text-gray-700"><strong>Har du kört och analyserat alla 3 nivåer (20, 100, 300) i din Orange-arbetsyta?</strong></label>
+                            </li>
+                            <li class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500" id="check2">
+                                <label for="check2" class="ml-3 text-gray-700"><strong>Är klasserna balanserade (lika många texter i varje)?</strong></label>
+                            </li>
+                            <li class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500" id="check3">
+                                <label for="check3" class="ml-3 text-gray-700"><strong>Har du använt **Cross-validation** i **Test and Score** för att få ärliga mätetal?</strong></label>
+                            </li>
+                            <li class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500" id="check4">
+                                <label for="check4" class="ml-3 text-gray-700"><strong>Inkluderar rapporten skärmdumpar av din Orange-arbetsyta och **Confusion Matrix**?</strong></label>
+                            </li>
+                            <li class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500" id="check5">
+                                <label for="check5" class="ml-3 text-gray-700"><strong>Analyserar du både Accuracy och F1-score?</strong></label>
+                            </li>
+                            <li class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500" id="check6">
+                                <label for="check6" class="ml-3 text-gray-700"><strong>Diskuterar du överanpassning (overfitting) genom att jämföra Cross-validation med Test on training data?</strong></label>
+                            </li>
+                            <li class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500" id="check7">
+                                <label for="check7" class="ml-3 text-gray-700"><strong>Innehåller rapporten reflektioner kring etik och bias?</strong></label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-6 mt-12 border-t border-gray-200">
+        <p class="text-sm text-gray-500"><strong>Detta är en interaktiv guide baserad på "Projekt 1 – NLP i praktiken med Orange Data Mining".</strong></p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const simulatedData = {
+                epochs: ['2', '7', '12', '17', '22', '27', '32', '37', '42', '47', '52', '57', '62', '67'],
+                level1: {
+                    title: 'Resultat: Nivå 1 (20 texter)',
+                    trainingLoss: [0.93, 0.89, 0.56, 0.51, 0.40, 0.38, 0.35, 0.26, 0.22, 0.19, 0.15, 0.13, 0.10, 0.08],
+                    validationLoss: [0.51, 0.51, 0.51, 0.51, 0.40, 0.39, 0.38, 0.35, 0.32, 0.29, 0.25, 0.25, 0.24, 0.18],
+                    metrics: { accuracy: 78.00, f1: 75.00 },
+                    analysis: '<strong>Modellen rapporterar hög träffsäkerhet på träningsdata men en betydligt lägre siffra (78%) vid Cross-validation. Detta tyder på **överanpassning**. Med så lite data har modellen memorerat mönstren snarare än lärt sig generalisera. Detta är den viktigaste insikten från den här nivån.</strong>'
+                },
+                level2: {
+                    title: 'Resultat: Nivå 2 (100 texter)',
+                    trainingLoss: [0.85, 0.65, 0.45, 0.30, 0.22, 0.18, 0.15, 0.12, 0.10, 0.09, 0.08, 0.07, 0.06, 0.05],
+                    validationLoss: [0.70, 0.55, 0.42, 0.33, 0.28, 0.25, 0.24, 0.23, 0.22, 0.22, 0.21, 0.21, 0.20, 0.20],
+                    metrics: { accuracy: 88.50, f1: 88.20 },
+                    analysis: '<strong>Mycket bättre! Med 100 texter/klass är mätetalen mer realistiska (88%) och skillnaden mellan träningsdata-test och Cross-validation är mindre. Modellen har lärt sig att generalisera, men det finns fortfarande utrymme för förbättring, vilket syns i att F1-score inte är perfekt.</strong>'
+                },
+                level3: {
+                    title: 'Resultat: Nivå 3 (300 texter)',
+                    trainingLoss: [0.75, 0.50, 0.35, 0.25, 0.20, 0.16, 0.13, 0.11, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04],
+                    validationLoss: [0.72, 0.48, 0.33, 0.24, 0.20, 0.17, 0.15, 0.14, 0.13, 0.12, 0.11, 0.11, 0.10, 0.10],
+                    metrics: { accuracy: 94.20, f1: 94.10 },
+                    analysis: '<strong>Utmärkt! Med 300 texter/klass är mätetalen höga och pålitliga (94%). Modellen är robust och presterar bra även på okänd data. Mer data har resulterat i en högre och mer ärlig Accuracy och F1-score, vilket är det optimala resultatet för detta projekt.</strong>'
+                }
+            };
+            
+            let lossChart, overfitChart;
+            
+            function createLossChart() {
+                const ctx = document.getElementById('lossChart').getContext('2d');
+                lossChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: simulatedData.epochs,
+                        datasets: [
+                            {
+                                label: 'Training Loss (Simulerad)',
+                                data: simulatedData.level1.trainingLoss,
+                                borderColor: 'rgb(234, 88, 12)', /* Orange */
+                                backgroundColor: 'rgba(234, 88, 12, 0.1)',
+                                tension: 0.1
+                            },
+                            {
+                                label: 'Validation Loss (Simulerad)',
+                                data: simulatedData.level1.validationLoss,
+                                borderColor: 'rgb(37, 99, 235)', /* Blue */
+                                backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                                tension: 0.1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Simulerad Träning vs. Valideringsförlust (Loss)'
+                            },
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false,
+                            },
+                        },
+                        scales: {
+                            x: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Epoch'
+                                }
+                            },
+                            y: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Loss'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function createOverfitChart() {
+                const ctx = document.getElementById('overfitChart').getContext('2d');
+                overfitChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['1', '10', '20', '30', '40', '50', '60'],
+                        datasets: [
+                            {
+                                label: 'Training Loss',
+                                data: [0.8, 0.5, 0.3, 0.2, 0.1, 0.05, 0.02],
+                                borderColor: 'rgb(234, 88, 12)',
+                                tension: 0.1
+                            },
+                            {
+                                label: 'Validation Loss (Överanpassning)',
+                                data: [0.7, 0.55, 0.45, 0.48, 0.55, 0.65, 0.75],
+                                borderColor: 'rgb(37, 99, 235)',
+                                tension: 0.1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Exempel på Överanpassning'
+                            }
+                        },
+                        scales: {
+                            y: { min: 0, max: 1 }
+                        }
+                    }
+                });
+            }
+
+            function updateDemo(level) {
+                const data = simulatedData[`level${level}`];
+                
+                lossChart.data.datasets[0].data = data.trainingLoss;
+                lossChart.data.datasets[1].data = data.validationLoss;
+                lossChart.update();
+                
+                document.getElementById('demo-chart-title').innerText = data.title;
+                document.getElementById('analysis-text').innerHTML = data.analysis;
+                
+                const accuracy = data.metrics.accuracy;
+                const f1 = data.metrics.f1;
+                
+                document.getElementById('metric-accuracy').innerText = `${accuracy.toFixed(2)}%`;
+                document.getElementById('metric-f1').innerText = `${f1.toFixed(2)}%`;
+                
+                document.getElementById('bar-accuracy').style.width = `${accuracy}%`;
+                document.getElementById('bar-f1').style.width = `${f1}%`;
+
+                document.querySelectorAll('#demo-controls .demo-button').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.level === level);
+                });
+            }
+
+            createLossChart();
+            createOverfitChart();
+            
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mobileNav = document.getElementById('mobile-nav');
+
+            function showSection(sectionId) {
+                sections.forEach(section => {
+                    section.classList.toggle('active', section.id === sectionId);
+                });
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.dataset.section === sectionId);
+                });
+                mobileNav.value = sectionId;
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showSection(e.target.dataset.section);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+
+            mobileNav.addEventListener('change', (e) => {
+                showSection(e.target.value);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            document.querySelectorAll('#workflow-tabs .tab-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    document.querySelectorAll('#workflow-tabs .tab-button').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                    document.getElementById(button.dataset.tab).classList.add('active');
+                });
+            });
+
+            document.querySelectorAll('#demo-controls .demo-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    updateDemo(button.dataset.level);
+                });
+            });
+            
+            showSection('hem');
+        });
+
+        function copyPrompt() {
+            const text = document.getElementById('prompt-text').innerText;
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+            } catch (err) {
+                console.error('Kunde inte kopiera text: ', err);
+            }
+            document.body.removeChild(textarea);
+            alert('Prompt kopierad till urklipp!');
+        }
+    </script>
+
+</body>
+</html>
