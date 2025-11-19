@@ -96,6 +96,30 @@
         .demo-button:hover:not(.active) {
             background-color: #e5e7eb;
         }
+        .widget {
+            background-color: #eef2f5;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-weight: bold;
+            color: #2c3e50;
+            font-family: monospace;
+        }
+        .important-note {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .flow-chart {
+            background-color: #f8f9fa;
+            border: 1px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+            font-family: monospace;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
     </style>
 </head>
 <body class="text-gray-800">
@@ -326,13 +350,91 @@
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
                     <h3 class="text-2xl font-semibold text-gray-800 mb-4">1. Verktyget: Orange Data Mining</h3>
-                    <ul class="space-y-3 list-disc list-inside text-gray-600">
-                        <li><strong>Ladda ner och installera Orange från [https://orangedatamining.com/](https://orangedatamining.com/).</strong></li>
-                        <li><strong>Gå till Options -> Add-ons och installera **Text Mining**-tillägget. Detta är nödvändigt för NLP-widgetarna.</strong></li>
-                        <li><strong>Börja med widgeten **File** (Fil) för att ladda in din CSV-data.</strong></li>
-                        <li><strong>Bygg din analys genom att koppla ihop widgets i den visuella arbetsytan (t.ex. File -> Corpus -> Preprocess Text -> Test and Score).</strong></li>
-                        <li><strong>Använd widgeten **Confusion Matrix** för att analysera felklassningarna.</strong></li>
-                    </ul>
+                    <h1>Laboration: Sentimentanalys i Orange</h1>
+    <p><strong>Syfte:</strong> Att träna en AI-modell att automatiskt avgöra om en recension är positiv, negativ eller neutral.</p>
+
+    <h2>1. Förberedelser & Data</h2>
+    <ul>
+        <li>Se till att tillägget <strong>Text Mining</strong> är installerat (via <em>Options &rarr; Add-ons</em>).</li>
+        <li>Använd datasetet (CSV) med två kolumner: <code>TEXT</code> och <code>KATEGORI</code>.</li>
+    </ul>
+
+    <h2>2. Bygg flödet (Steg för steg)</h2>
+    <p>Bygg följande kedja av widgets på arbetsytan. Var noga med pilarnas riktning.</p>
+
+    <h3>A. Läs in och definiera data</h3>
+    <ol>
+        <li>
+            <span class="widget">CSV File Import</span><br>
+            Ladda in din fil här.
+        </li>
+        <li>
+            <span class="widget">Select Columns</span> <span style="color:red; font-weight:bold;">(Kritisk punkt!)</span><br>
+            Koppla CSV-filen hit. Dubbelklicka och ställ in följande:
+            <ul>
+                <li>Dra <strong>KATEGORI</strong> till rutan <em>Target Variable</em> (Detta är facit).</li>
+                <li>Dra <strong>TEXT</strong> till rutan <em>Meta Attributes</em> (Detta är texten som ska läsas).</li>
+            </ul>
+            <em>Utan detta steg vet inte AI:n vad den ska gissa på.</em>
+        </li>
+        <li>
+            <span class="widget">Corpus</span><br>
+            Koppla <em>Select Columns</em> hit. Detta gör om tabellen till ett text-objekt som Orange kan bearbeta.
+        </li>
+    </ol>
+
+    <h3>B. Tvätta och omvandla text</h3>
+    <ol start="4">
+        <li>
+            <span class="widget">Preprocess Text</span><br>
+            Gör följande inställningar:
+            <ul>
+                <li>Under "Preprocessors": Dra <strong>Tokenization (Regexp)</strong> så att den ligger <strong>högst upp</strong> i listan.</li>
+                <li>Kryssa i <strong>Stopwords</strong> (välj "Swedish") för att städa bort småord.</li>
+            </ul>
+        </li>
+        <li>
+            <span class="widget">Bag of Words</span><br>
+            Koppla <em>Preprocess Text</em> hit. Detta omvandlar texten till siffror (matris).
+        </li>
+    </ol>
+
+    <h3>C. Träna och Testa (Hjärnan)</h3>
+    <ol start="6">
+        <li>
+            <span class="widget">Test and Score</span><br>
+            Dra en pil från <span class="widget">Bag of Words</span> till denna widget. Se till att den kopplas till ingången <strong>Data</strong>.
+        </li>
+        <li>
+            <span class="widget">Naive Bayes</span> (Modellen)<br>
+            Placera denna fritt. Dra en pil <strong>från</strong> höger sida av Naive Bayes <strong>till</strong> vänster sida av Test and Score.<br>
+            <strong>Kontroll:</strong> Länken måste heta <em>Learner &rarr; Learner</em>.
+        </li>
+    </ol>
+
+    <h3>D. Utvärdera</h3>
+    <ol start="8">
+        <li>
+            <span class="widget">Confusion Matrix</span><br>
+            Koppla från <em>Test and Score</em> hit. Här ser ni resultatet och var AI:n gissade fel.
+        </li>
+    </ol>
+
+    <h2>3. Visuell översikt</h2>
+    <div class="flow-chart">
+        CSV &rarr; Select Columns &rarr; Corpus &rarr; Preprocess &rarr; Bag of Words &rarr; Test & Score<br>
+        <br>
+        &uarr;<br>
+        Naive Bayes
+    </div>
+
+    <div class="important-note">
+        <h3>Felsökning</h3>
+        <ul>
+            <li><strong>Rött kryss på Test and Score?</strong> Kolla <em>Select Columns</em> igen. Är "KATEGORI" verkligen satt som <em>Target</em>?</li>
+            <li><strong>Får du inte dra linjen från Naive Bayes?</strong> Ta bort linjen. Börja dra från Naive Bayes (höger) till Test and Score (vänster).</li>
+        </ul>
+    </div>
                 </div>
 
                 <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
