@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Coding: Från Ord till Kod</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome for Icons (No SVG Graphics) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f5f5f4; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d6d3d1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a29e; 
+        }
+
+        /* Chart Container Strategy */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .step-active {
+            border-left: 4px solid #f59e0b; /* amber-500 */
+            background-color: #fffbeb; /* amber-50 */
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 font-sans antialiased selection:bg-amber-200">
+
+    <!-- Chosen Palette: Warm Neutrals (Stone) with Amber/Teal Accents -->
+    <!-- Application Structure Plan: 
+         The app is designed as a "Mission Control" for the student. 
+         1. Dashboard/Intro: Sets the context and time expectations.
+         2. Phase 1 (The Playground): Interactive prompt generator for the "Hello World" games. 
+         3. Phase 2 (The Lab): A stepper interface for the Iterative "Senior Dev" process, visualizing how code grows.
+         4. Knowledge Base (Tips): Cards for design/mechanics.
+         5. Debrief (Checklist): Interactive verification.
+         This structure transforms linear text into task-based modules. 
+    -->
+    <!-- Visualization & Content Choices:
+         1. Donut Chart: Visualizes the lesson time allocation (15m vs 60m) to manage expectations.
+         2. Interactive Prompt Generator: Replaces static text with copy-paste functionality for usability.
+         3. Line Chart: Visualizes "Code Complexity vs. Time" in Step 2 to explain why we iterate.
+         4. Stepper UI: Breaks down the Tower Defense text into digestable logical chunks.
+         5. FontAwesome Icons: Used instead of SVGs.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-stone-900 text-stone-100 shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-wand-magic-sparkles text-amber-400 text-xl"></i>
+                <h1 class="font-bold text-lg tracking-wide">Vibe Coding <span class="font-normal text-stone-400">| Elevguide</span></h1>
+            </div>
+            <div class="hidden md:flex gap-6 text-sm font-medium">
+                <a href="#intro" class="hover:text-amber-400 transition-colors">Start</a>
+                <a href="#step1" class="hover:text-amber-400 transition-colors">Steg 1: Hello World</a>
+                <a href="#step2" class="hover:text-amber-400 transition-colors">Steg 2: Senior Dev</a>
+                <a href="#tips" class="hover:text-amber-400 transition-colors">Pro-Tips</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 space-y-16">
+
+        <!-- HERO / INTRO SECTION -->
+        <section id="intro" class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6">
+                <div class="inline-block px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-bold uppercase tracking-wider mb-2">Lektionsmål</div>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-stone-900 leading-tight">Från ord till kod <br><span class="text-amber-600">utan syntax</span></h2>
+                <p class="text-lg text-stone-600 leading-relaxed">
+                    Du ska skapa ett fungerande datorspel utan att skriva koden tecken för tecken. Använd AI för att "vibba" fram koden genom tydliga instruktioner, logik och iteration.
+                </p>
+                
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200">
+                    <h3 class="font-bold text-stone-800 mb-4 border-b border-stone-100 pb-2"><i class="fa-solid fa-toolbox mr-2 text-teal-600"></i>Verktygslåda</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <a href="https://aistudio.google.com/" target="_blank" class="flex flex-col items-center p-3 rounded-lg bg-stone-50 hover:bg-stone-100 transition-colors text-center border border-stone-200">
+                            <i class="fa-brands fa-google text-2xl mb-2 text-stone-700"></i>
+                            <span class="text-sm font-semibold">AI Studio</span>
+                            <span class="text-xs text-stone-500">Gemini 3 Pro</span>
+                        </a>
+                        <div class="flex flex-col items-center p-3 rounded-lg bg-stone-50 text-center border border-stone-200 opacity-75">
+                            <i class="fa-solid fa-code text-2xl mb-2 text-blue-600"></i>
+                            <span class="text-sm font-semibold">VS Code</span>
+                            <span class="text-xs text-stone-500">Editor</span>
+                        </div>
+                        <a href="https://lovable.dev/" target="_blank" class="flex flex-col items-center p-3 rounded-lg bg-stone-50 hover:bg-stone-100 transition-colors text-center border border-stone-200">
+                            <i class="fa-solid fa-heart text-2xl mb-2 text-rose-500"></i>
+                            <span class="text-sm font-semibold">Lovable</span>
+                        </a>
+                        <a href="https://replit.com/" target="_blank" class="flex flex-col items-center p-3 rounded-lg bg-stone-50 hover:bg-stone-100 transition-colors text-center border border-stone-200">
+                            <i class="fa-solid fa-terminal text-2xl mb-2 text-orange-600"></i>
+                            <span class="text-sm font-semibold">Replit</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-100 flex flex-col items-center justify-center">
+                <h3 class="text-lg font-bold text-stone-700 mb-2">Tidsplanering</h3>
+                <p class="text-sm text-stone-500 mb-6 text-center">Fokusfördelning under lektionen</p>
+                <div class="chart-container">
+                    <canvas id="timeChart"></canvas>
+                </div>
+                <div class="mt-4 text-center text-sm text-stone-500">
+                    <span class="inline-block w-3 h-3 bg-teal-500 rounded-full mr-1"></span> Intro (25%)
+                    <span class="inline-block w-3 h-3 bg-amber-500 rounded-full ml-4 mr-1"></span> Iteration (75%)
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 1: HELLO WORLD -->
+        <section id="step1" class="scroll-mt-24">
+            <div class="mb-8 border-l-4 border-teal-500 pl-4">
+                <h2 class="text-3xl font-bold text-stone-900">Steg 1: "Hello World"</h2>
+                <p class="text-stone-600 mt-2">Målet är att gå från tanke till spelbart resultat på 15-20 minuter. Välj ett spår nedan för att generera din start-prompt.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Game Selector -->
+                <div class="lg:col-span-4 space-y-3">
+                    <p class="text-sm font-bold uppercase text-stone-400 tracking-wider mb-2">Välj Speltyp</p>
+                    <button onclick="selectGame('flappy')" id="btn-flappy" class="game-btn w-full text-left p-4 rounded-xl border border-stone-200 bg-white hover:border-teal-500 hover:shadow-md transition-all flex items-center gap-4 group ring-2 ring-transparent focus:outline-none">
+                        <div class="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center group-hover:bg-teal-500 transition-colors">
+                            <i class="fa-solid fa-dove text-teal-600 group-hover:text-white"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-stone-800">Flappy Bird-klon</h4>
+                            <p class="text-xs text-stone-500">Sidoscrollare</p>
+                        </div>
+                    </button>
+
+                    <button onclick="selectGame('match3')" id="btn-match3" class="game-btn w-full text-left p-4 rounded-xl border border-stone-200 bg-white hover:border-pink-500 hover:shadow-md transition-all flex items-center gap-4 group ring-2 ring-transparent focus:outline-none">
+                        <div class="w-10 h-10 rounded-full bg-pink-50 flex items-center justify-center group-hover:bg-pink-500 transition-colors">
+                            <i class="fa-solid fa-shapes text-pink-600 group-hover:text-white"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-stone-800">Match-3</h4>
+                            <p class="text-xs text-stone-500">Candy Crush-stil</p>
+                        </div>
+                    </button>
+
+                    <button onclick="selectGame('whack')" id="btn-whack" class="game-btn w-full text-left p-4 rounded-xl border border-stone-200 bg-white hover:border-purple-500 hover:shadow-md transition-all flex items-center gap-4 group ring-2 ring-transparent focus:outline-none">
+                        <div class="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center group-hover:bg-purple-500 transition-colors">
+                            <i class="fa-solid fa-gavel text-purple-600 group-hover:text-white"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-stone-800">Whack-a-Mole</h4>
+                            <p class="text-xs text-stone-500">Reaktionsspel</p>
+                        </div>
+                    </button>
+
+                    <button onclick="selectGame('tower')" id="btn-tower" class="game-btn w-full text-left p-4 rounded-xl border border-stone-200 bg-white hover:border-blue-500 hover:shadow-md transition-all flex items-center gap-4 group ring-2 ring-transparent focus:outline-none">
+                        <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center group-hover:bg-blue-500 transition-colors">
+                            <i class="fa-brands fa-fort-awesome text-blue-600 group-hover:text-white"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-stone-800">Tower Defence</h4>
+                            <p class="text-xs text-stone-500">Strategi</p>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Prompt Output -->
+                <div class="lg:col-span-8">
+                    <div class="bg-stone-900 rounded-xl p-6 h-full text-stone-300 relative font-mono text-sm shadow-2xl flex flex-col">
+                        <div class="flex justify-between items-center mb-4 border-b border-stone-700 pb-4">
+                            <span class="text-teal-400 font-bold"><i class="fa-solid fa-terminal mr-2"></i>Prompt Generator</span>
+                            <button onclick="copyToClipboard('promptOutput')" class="text-xs bg-stone-700 hover:bg-stone-600 text-white px-3 py-1 rounded transition-colors">
+                                <i class="fa-regular fa-copy mr-1"></i> Kopiera
+                            </button>
+                        </div>
+                        <div id="promptOutput" class="flex-grow whitespace-pre-wrap leading-relaxed text-stone-100">
+Välj ett spel till vänster för att generera din prompt här...
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-stone-700 text-xs text-stone-500">
+                            <i class="fa-solid fa-info-circle mr-1"></i> Kopiera texten ovan och klistra in i din AI-modell.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 flex justify-end">
+                 <div class="bg-teal-50 border border-teal-200 text-teal-800 px-4 py-2 rounded-lg text-sm flex items-center animate-pulse">
+                    <i class="fa-solid fa-check-circle mr-2"></i> Uppdrag: Se till att spelet startar. Spela det en gång.
+                 </div>
+            </div>
+        </section>
+
+        <!-- STEP 2: SENIOR DEV MODE -->
+        <section id="step2" class="scroll-mt-24 bg-white rounded-3xl p-8 shadow-sm border border-stone-100">
+            <div class="mb-8 border-l-4 border-amber-500 pl-4">
+                <h2 class="text-3xl font-bold text-stone-900">Steg 2: "Senior Developer Mode"</h2>
+                <p class="text-stone-600 mt-2">Agera "Product Manager". Vi batchar instruktioner för att spara prompts och öka kvaliteten.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Interactive Stepper -->
+                <div class="space-y-6">
+                    <h3 class="font-bold text-lg text-stone-800">Tower Defence: Iterationsflöde</h3>
+                    <p class="text-sm text-stone-500">Klicka på stegen för att se hur du bygger upp spelet logiskt.</p>
+
+                    <div class="space-y-2">
+                        <!-- Step 0: System Role -->
+                        <div onclick="setDevStep(0)" id="dev-step-0" class="dev-step cursor-pointer p-4 rounded-lg border border-stone-200 hover:bg-stone-50 transition-all">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-stone-700">0. System Roll</span>
+                                <i class="fa-solid fa-user-gear text-stone-400"></i>
+                            </div>
+                        </div>
+
+                        <!-- Step 1: Core Engine -->
+                        <div onclick="setDevStep(1)" id="dev-step-1" class="dev-step cursor-pointer p-4 rounded-lg border border-stone-200 hover:bg-stone-50 transition-all">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-stone-700">1. Karta & Fiender</span>
+                                <i class="fa-solid fa-map-location-dot text-stone-400"></i>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Interaction -->
+                        <div onclick="setDevStep(2)" id="dev-step-2" class="dev-step cursor-pointer p-4 rounded-lg border border-stone-200 hover:bg-stone-50 transition-all">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-stone-700">2. Torn & Ekonomi</span>
+                                <i class="fa-solid fa-coins text-stone-400"></i>
+                            </div>
+                        </div>
+
+                         <!-- Step 3: Polish -->
+                         <div onclick="setDevStep(3)" id="dev-step-3" class="dev-step cursor-pointer p-4 rounded-lg border border-stone-200 hover:bg-stone-50 transition-all">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-stone-700">3. Vågor & Polish</span>
+                                <i class="fa-solid fa-wand-magic text-stone-400"></i>
+                            </div>
+                        </div>
+
+                        <!-- Debugging -->
+                        <div onclick="setDevStep(4)" id="dev-step-4" class="dev-step cursor-pointer p-4 rounded-lg border border-red-100 bg-red-50 hover:bg-red-100 transition-all">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-red-700">🚨 Hantera Buggar</span>
+                                <i class="fa-solid fa-bug text-red-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Display -->
+                <div class="flex flex-col gap-6">
+                     <!-- Content Box -->
+                    <div class="bg-stone-900 rounded-xl p-6 text-stone-300 font-mono text-sm shadow-xl flex-grow relative">
+                        <div class="absolute top-4 right-4">
+                            <button onclick="copyToClipboard('devPromptOutput')" class="text-xs bg-stone-700 hover:bg-stone-600 text-white px-3 py-1 rounded transition-colors">
+                                <i class="fa-regular fa-copy mr-1"></i> Kopiera
+                            </button>
+                        </div>
+                        <h4 id="devStepTitle" class="text-amber-400 font-bold mb-4 text-base">Välj ett steg till vänster...</h4>
+                        <div id="devPromptOutput" class="whitespace-pre-wrap leading-relaxed text-stone-100 opacity-90">
+Klicka på stegen i listan för att hämta rätt "batchad" prompt för ditt spel.
+                        </div>
+                    </div>
+
+                    <!-- Complexity Chart -->
+                    <div class="bg-white rounded-xl border border-stone-200 p-4">
+                         <h4 class="text-xs font-bold uppercase text-stone-400 mb-2">Projektkomplexitet över tid</h4>
+                         <div class="chart-container" style="height: 200px;">
+                            <canvas id="complexityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRO TIPS -->
+        <section id="tips" class="scroll-mt-24">
+            <h2 class="text-3xl font-bold text-stone-900 mb-8 text-center">Pro-Tips: Prompt Bibliotek</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Design Card -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-stone-200 group hover:shadow-md transition-shadow">
+                    <div class="bg-purple-100 p-4 flex items-center justify-between">
+                        <h3 class="font-bold text-purple-900">Design (UI/UX)</h3>
+                        <i class="fa-solid fa-paintbrush text-purple-500 text-xl"></i>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="text-sm">
+                            <p class="font-bold text-stone-700 mb-1">Retro 8-bit:</p>
+                            <p class="text-stone-500 bg-stone-50 p-2 rounded italic">"Byt designstil till 'Retro 8-bit'. Använd pixel-typsnitt, mörkblå bakgrund och starka kontrastfärger..."</p>
+                        </div>
+                        <div class="text-sm">
+                            <p class="font-bold text-stone-700 mb-1">Glassmorphism:</p>
+                            <p class="text-stone-500 bg-stone-50 p-2 rounded italic">"Gör designen minimalistisk och modern. Använd halvgenomskinliga paneler med 'blur'-effekt..."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mechanics Card -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-stone-200 group hover:shadow-md transition-shadow">
+                    <div class="bg-blue-100 p-4 flex items-center justify-between">
+                        <h3 class="font-bold text-blue-900">Spelmekanik</h3>
+                        <i class="fa-solid fa-gamepad text-blue-500 text-xl"></i>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="text-sm">
+                            <p class="font-bold text-stone-700 mb-1">Tornvariation:</p>
+                            <p class="text-stone-500 bg-stone-50 p-2 rounded italic">"Lägg till olika typer av torn. Ett billigt bastorn, ett dyrt 'Sniper'-torn..."</p>
+                        </div>
+                        <div class="text-sm">
+                            <p class="font-bold text-stone-700 mb-1">Power-ups:</p>
+                            <p class="text-stone-500 bg-stone-50 p-2 rounded italic">"Lägg till 'Power-ups' som dyker upp slumpmässigt på banan..."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Refactoring Card -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-stone-200 group hover:shadow-md transition-shadow">
+                    <div class="bg-emerald-100 p-4 flex items-center justify-between">
+                        <h3 class="font-bold text-emerald-900">Kodstruktur</h3>
+                        <i class="fa-solid fa-code-branch text-emerald-500 text-xl"></i>
+                    </div>
+                    <div class="p-6">
+                         <div class="text-sm">
+                            <p class="font-bold text-stone-700 mb-1">Refactoring:</p>
+                            <p class="text-stone-500 bg-stone-50 p-2 rounded italic">"Koden börjar bli lång. Refaktorisera koden så att logiken är tydligare, men ändra INGET i hur spelet fungerar..."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHECKLIST / FOOTER -->
+        <section class="bg-stone-900 text-stone-300 rounded-3xl p-8 lg:p-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold text-white mb-4">Redovisning & Checklista</h2>
+                    <p class="mb-6">När lektionen är slut ska du ha uppnått följande:</p>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-3">
+                            <input type="checkbox" class="w-5 h-5 accent-teal-500 rounded cursor-pointer">
+                            <span>En <code class="bg-stone-800 px-2 py-0.5 rounded text-amber-400">index.html</code>-fil som går att köra.</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <input type="checkbox" class="w-5 h-5 accent-teal-500 rounded cursor-pointer">
+                            <span>Ett spel som är mer avancerat än "Hello World".</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <input type="checkbox" class="w-5 h-5 accent-teal-500 rounded cursor-pointer">
+                            <span>Kunna förklara var spellogiken (t.ex. kollision) sitter.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="text-center lg:text-right">
+                    <i class="fa-solid fa-rocket text-6xl text-stone-700 mb-4"></i>
+                    <p class="text-stone-500 italic">"Det handlar inte om att kunna syntax,<br>det handlar om att kunna tänka."</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        // DATA STORE
+        const prompts = {
+            flappy: `Skapa ett spel som liknar Flappy Bird i en enda HTML-fil. Spelaren är en 🌮 som ska flyga mellan hinder (t.ex. kaktusar). Spelet tar slut om man nuddar hinder eller marken. Lägg till poängräkning.`,
+            match3: `Skapa ett pusselspel i en HTML-fil med ett 8x8 rutnät. Fyll rutorna med olika färgade former. När man klickar på en grupp av 3 eller fler likadana ska de försvinna och nya falla ner ovanifrån. Ge poäng för varje krossad grupp.`,
+            whack: `Skapa ett 'Whack-a-mole'-spel. Använd emojis som mullvadar som dyker upp slumpmässigt i ett rutnät 3x3. Det ska finnas en timer på 30 sekunder. Använd snygg CSS med neon-färger.`,
+            tower: `Skapa ett enkelt Tower Defence-spel i en fil. Det ska finnas en slingrig väg där fiender (röda prickar) går från start till mål. Jag ska kunna klicka för att placera ut torn (blå rutor) som skjuter på fienderna automatiskt. Lägg till liv och pengar.`
+        };
+
+        const devSteps = {
+            0: {
+                title: "0. System Roll (Start)",
+                text: `Du är en expert på Javascript och spelutveckling. Du skriver ren, modulär kod. Vi ska bygga ett Tower Defence-spel.`
+            },
+            1: {
+                title: "1. Karta & Fiender (Grundmotor)",
+                text: `Skapa grundmotorn för ett Tower Defence-spel. Jag vill ha följande klart nu:
+1. En karta med en tydlig väg (path) från vänster till höger sida.
+2. Fiender (cirklar) som spawnar automatiskt och följer vägen exakt.
+3. En spelarbas i slutet av vägen med 100 HP.
+4. Om en fiende når basen ska jag förlora HP och fienden försvinner.`
+            },
+            2: {
+                title: "2. Torn & Ekonomi (Interaktion)",
+                text: `Bra. Nu lägger vi till interaktion. Implementera följande:
+1. Jag ska kunna klicka på gräset (inte vägen) för att köpa och placera ut torn.
+2. Tornen ska automatiskt sikta och skjuta projektiler mot närmaste fiende inom räckvidd.
+3. Ekonomisystem: Jag startar med 50 guld. Torn kostar 20 guld. Jag får 5 guld när ett torn dödar en fiende.
+4. Visa guld och HP tydligt i UI:t.`
+            },
+            3: {
+                title: "3. Vågor & Polish (Spelkänsla)",
+                text: `Nu gör vi det till ett riktigt spel.
+1. Byt ut formerna mot emojis: Fiender = 👾, Torn = 🏰, Skott = ❄️.
+2. Implementera ett våg-system (Wave system). Våg 1 är lätt, sedan kommer fler och snabbare fiender för varje våg.
+3. Lägg till en 'Game Over'-skärm om HP når 0, och en 'Starta om'-knapp.`
+            },
+            4: {
+                title: "🚨 Hantera Buggar",
+                text: `Jag får felet: [Klistra in fel här]. Lös det utan att ta bort funktionerna vi nyss lade till.`
+            }
+        };
+
+        // INTERACTION LOGIC
+        function selectGame(gameKey) {
+            // Update UI State
+            document.querySelectorAll('.game-btn').forEach(btn => {
+                btn.classList.remove('ring-2', 'ring-teal-500', 'ring-pink-500', 'ring-purple-500', 'ring-blue-500', 'shadow-md');
+            });
+            
+            const btn = document.getElementById(`btn-${gameKey}`);
+            let colorRing = 'ring-teal-500';
+            if(gameKey === 'match3') colorRing = 'ring-pink-500';
+            if(gameKey === 'whack') colorRing = 'ring-purple-500';
+            if(gameKey === 'tower') colorRing = 'ring-blue-500';
+            
+            btn.classList.add('ring-2', colorRing, 'shadow-md');
+
+            // Update Text
+            const output = document.getElementById('promptOutput');
+            output.textContent = prompts[gameKey];
+            output.classList.add('animate-pulse');
+            setTimeout(() => output.classList.remove('animate-pulse'), 500);
+        }
+
+        function setDevStep(stepIndex) {
+            // Update UI State
+            document.querySelectorAll('.dev-step').forEach(step => {
+                step.classList.remove('step-active', 'bg-stone-50');
+            });
+            document.getElementById(`dev-step-${stepIndex}`).classList.add('step-active');
+
+            // Update Text
+            const title = document.getElementById('devStepTitle');
+            const output = document.getElementById('devPromptOutput');
+            
+            title.textContent = devSteps[stepIndex].title;
+            output.textContent = devSteps[stepIndex].text;
+            
+            // Animation reset
+            output.classList.remove('opacity-0');
+            void output.offsetWidth; // trigger reflow
+            output.classList.add('opacity-100');
+        }
+
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Prompt kopierad till urklipp!");
+            });
+        }
+
+        // CHARTS
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Time Allocation Chart (Donut)
+            const ctxTime = document.getElementById('timeChart').getContext('2d');
+            new Chart(ctxTime, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Steg 1: Hello World', 'Steg 2: Senior Dev'],
+                    datasets: [{
+                        data: [20, 60],
+                        backgroundColor: ['#14b8a6', '#f59e0b'], // teal-500, amber-500
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + context.raw + ' min';
+                                }
+                            }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+
+            // 2. Complexity Chart (Line)
+            const ctxComplex = document.getElementById('complexityChart').getContext('2d');
+            new Chart(ctxComplex, {
+                type: 'line',
+                data: {
+                    labels: ['Start', 'Steg 1 (Grund)', 'Steg 2 (Interaktion)', 'Steg 3 (Polish)'],
+                    datasets: [{
+                        label: 'Kodens Komplexitet',
+                        data: [10, 30, 65, 95],
+                        borderColor: '#f59e0b',
+                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { display: false },
+                        x: { grid: { display: false } }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+
+            // Initialize default states
+            selectGame('flappy');
+            setDevStep(0);
+        });
+    </script>
+</body>
+</html>
